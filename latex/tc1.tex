@@ -217,10 +217,36 @@ independe da máquina $i$ que estamos executando a manutenção. Temos a funçã
 \end{equation}
 
 A \autoref{eq:restf1} indica que toda máquina executa exatamente uma política de manutenção.
-
-Note que na \autoref{eq:objf1} temos essencialmente um problema de programação linear inteira.
+Além disso, note que solução de \autoref{eq:restf1} é trivial: basta escolher o plano de 
+manutenção com o menor custo para todos os equipamentos.
 
 \section{Problema 2}
+
+O custo da falha de cada equipamento é dado pelo produto da probabilidade de falha $p_{ij}$ pelo custo da falha do equipamento,
+dada por $d_i$. Assim, temos 
+
+\begin{equation}\label{eq:objf2}
+	\min f_2 = \sum_{i=1}^{N} \sum_{j=1}^{J} p_{ij} \, d_i \, x_{ij}
+\end{equation}
+
+\noindent onde 
+
+\[ x_{ij} \in \{0,1\} \quad , \quad i = \{1, 2, ..., N\}  \quad , \quad j = \{1, 2, ..., J\} \]
+
+\[ 
+p_{ij} = \frac{F_i \left(t_0 + k_j \Delta t \right) - F_i\left(t_0\right) }{1 - F_i\left(t_0\right)}
+\quad , \quad 
+F_i(t) = 1 - \exp \left[ - \left( \frac{t}{\eta_i} \right)^{\beta_i} \right] 
+\]
+
+\noindent sujeito a 
+
+\begin{equation}\label{eq:restf2}
+	\sum_{j=1}^{J} x_{ij} = 1 \quad , \quad \forall i = {1, 2, ..., N}
+\end{equation}
+
+Note que na \autoref{eq:objf2} temos essencialmente um problema de programação linear inteira.
+Em \autoref{eq:objf2} temos essencialmente um problema de programação linear inteira.
 
 \chapter{Algoritmos}\label{cap:algoritmos} 
 
