@@ -1,0 +1,185 @@
+\documentclass{beamer}
+
+\usepackage{amsmath} 
+
+\setbeamertemplate{footline}[frame number]
+\beamertemplatenavigationsymbolsempty
+\usecolortheme{beaver}
+
+\newcommand{\un}[1]{\;\text{#1}}
+
+%Information to be included in the title page:
+\title{Sample title}
+\author{Anonymous}
+\institute{Overleaf}
+\date{2021}
+
+\title[Short Paper Title]  
+{Trabalho Computacional 01}
+
+\subtitle
+{Teoria da Decisão (ELE088)}
+
+\author 
+ { Raphael Henrique Braga Leivas \\
+ Milton Pereira Bravo Neto \\ 
+ \textbf{Daniel - Completar}}
+
+
+\institute 
+{
+Curso de Bacharelado em Engenharia de Sistemas\\
+Universidade Federal de Minas Gerais
+}
+
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}
+    \frametitle{Sumário}
+    \tableofcontents
+\end{frame}
+
+\section{Modelagem}
+
+    \begin{frame}
+        \frametitle{Modelagem}
+        Temos que modelar dois problemas mono-objetivos:
+        \vspace{1cm}
+
+        \begin{itemize}
+            \item Problema 1: minimização do custo de manutenção total $f_1 (\cdot)$
+             \vspace{1cm}
+            \item Problema 2: minimização do custo esperado de falha total $f_2 (\cdot)$
+        \end{itemize}
+    \end{frame}
+
+    \subsection{Problema 1 Isolado}
+    \begin{frame}
+        \frametitle{Problema 1 Isolado}
+
+        \begin{center}
+            Problema 1: minimização do custo de manutenção total
+        \end{center}
+
+        \vspace{0.5cm}
+
+        \textbf{Variável de decisão:}
+
+        \[  x_{ij}: \un{se a máquina $i$ executa a manutenção $j$}  \]
+        
+        \[ x_{ij} \in \{0,1\} \quad , \quad i = \{1, 2, ..., N\}  \quad , \quad j = \{1, 2, ..., J\} \]
+
+        \vspace{0.5cm}
+
+        \textbf{Função Objetivo e Restrições}
+
+        \[  \min f_1 = \sum_{i=1}^{N} \sum_{j=1}^{J} c_j x_{ij} \]
+
+        \[ \sum_{j=1}^{J} x_{ij} = 1 \quad , \quad \forall i = {1, 2, ..., N} \]
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Problema 1 Isolado - Solução Trivial}
+
+        \begin{center}
+            Atribuir a manutenção mais barata a todos os equipamentos:
+        \end{center}
+
+
+        \[ x^{*} = \begin{bmatrix} 
+            1 & 0 & 0 \\
+            1 & 0 & 0 \\
+            \vdots & \vdots & \vdots \\
+            1 &  0      & 0 
+            \end{bmatrix} \]
+
+        \vspace{1cm}
+
+       \[ f_1\left(x^{*}\right) =   \]
+    \end{frame}
+
+    \subsection{Problema 2 Isolado}
+    \begin{frame}
+        \frametitle{Problema 2 Isolado}
+
+        \begin{center}
+            Problema 2: minimização do custo esperado de falha total
+        \end{center}
+
+        \vspace{0.5cm}
+
+        \textbf{Variável de decisão:}
+
+        \[  x_{ij}: \un{se a máquina $i$ executa a manutenção $j$}  \]
+        
+        \[ x_{ij} \in \{0,1\} \quad , \quad i = \{1, 2, ..., N\}  \quad , \quad j = \{1, 2, ..., J\} \]
+
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Problema 2 Isolado}
+
+        \textbf{Função Objetivo}
+
+        \[  \min f_2 = \sum_{i=1}^{N} \sum_{j=1}^{J} p_{ij} \, d_i \, x_{ij} \]
+
+        \[ x_{ij} \in \{0,1\} \quad , \quad i = \{1, 2, ..., N\}  \quad , \quad j = \{1, 2, ..., J\} \]
+
+        \[ 
+        p_{ij} = \frac{F_i \left(t_0 + k_j \Delta t \right) - F_i\left(t_0\right) }{1 - F_i\left(t_0\right)}
+        \quad , \quad 
+        F_i(t) = 1 - \exp \left[ - \left( \frac{t}{\eta_i} \right)^{\beta_i} \right] 
+        \]
+
+        \vspace{0.5cm}
+        
+        \textbf{Restrição}
+
+        \[ \sum_{j=1}^{J} x_{ij} = 1 \quad , \quad \forall i = {1, 2, ..., N} \]
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Problema 2 Isolado - Solução via Simplex}
+
+        \begin{center}
+            Atribuir a manutenção mais cara a todos os equipamentos:
+        \end{center}
+
+        \[ x^{*} = \begin{bmatrix} 
+            0 & 0 & 1 \\
+            0 & 0 & 1 \\
+            \vdots & \vdots & \vdots \\
+            0 &  0      & 1 
+            \end{bmatrix} \]
+
+        \vspace{1cm}
+
+       \[ f_2\left(x^{*}\right) = 1048.17 \]
+    \end{frame}
+
+    \subsection{Problema Multiobjetivo}
+    \begin{frame}
+        \frametitle{Problema Multiobjetivo}
+
+        \[  \min f_1 = \sum_{i=1}^{N} \sum_{j=1}^{J} c_j x_{ij} \]
+
+        \[  \min f_2 = \sum_{i=1}^{N} \sum_{j=1}^{J} p_{ij} \, d_i \, x_{ij} \]
+
+        Sujeito a 
+
+        \[ \sum_{j=1}^{J} x_{ij} = 1 \quad , \quad \forall i = {1, 2, ..., N} \]
+
+        \[ x_{ij} \in \{0,1\} \quad , \quad i = \{1, 2, ..., N\}  \quad , \quad j = \{1, 2, ..., J\} \]
+
+        \[  x_{ij}: \un{se a máquina $i$ executa a manutenção $j$}  \]
+
+    \end{frame}
+
+\section{Algoritmos}
+
+\end{document}
