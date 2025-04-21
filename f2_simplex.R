@@ -45,8 +45,7 @@ for (i in 1:N) {
     # pega o dado do fator de risco da manutenção
     k <- mpdb[j, 2]
     
-    numerator <- weibull_dist(t0 + k * delta_t, eta_cluster, beta_cluster) 
-      - weibull_dist(t0, eta_cluster, beta_cluster)
+    numerator <- weibull_dist(t0 + k * delta_t, eta_cluster, beta_cluster) - weibull_dist(t0, eta_cluster, beta_cluster)
     denominator <- 1 - weibull_dist(t0, eta_cluster, beta_cluster)
     
     p_ij[i, j] <- as.numeric(numerator) / as.numeric(denominator)
