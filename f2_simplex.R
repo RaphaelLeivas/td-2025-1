@@ -131,9 +131,17 @@ for (i in 1:length(solution)) {
 # note que nao era trivial que a solução ótima era colocar a mais cara para todas,
 # foi bom ter o simplex para confirmar essa hipótese.
 
+label_column <- c()
 
-df <- data.frame(sol_matrix)
-colnames(df) <- c("Manutenção 1", "Manutenção 2", "Manutenção 3")
+for (i in 1:N) {
+  label_column <- c(label_column, paste("Equipamento ", i))
+}
+
+df <- data.frame(label_column, sol_matrix)
+colnames(df) <- c("Eqpto", "j = 1", "j = 2", "j = 3")
 ft <- flextable(df)
+ft <- add_header_row(
+  x = ft, values = c("Equipamento", "Manutenção"),
+  colwidths = c(1, J))
 
 
