@@ -1,11 +1,11 @@
 # Fdb version 4
-["makeindex tc1.idx"] 1745093688.47564 "tc1.idx" "tc1.ind" "tc1" 1745094059.52169 0
-  "tc1.idx" 1745094059 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["makeindex tc1.idx"] 1745093688.47564 "tc1.idx" "tc1.ind" "tc1" 1745282938.55096 0
+  "tc1.idx" 1745282938 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
   "tc1.ilg"
   "tc1.ind"
   (rewritten before read)
-["pdflatex"] 1745094058.33616 "c:/Users/bravo/OneDrive/Engenharia Elétrica/Teoria da decisao/td-2025-1/latex/tc1.tex" "tc1.pdf" "tc1" 1745094059.52218 0
+["pdflatex"] 1745282937.40322 "c:/Users/bravo/OneDrive/Engenharia Elétrica/Teoria da decisao/td-2025-1/latex/tc1.tex" "tc1.pdf" "tc1" 1745282938.55135 0
   "C:/Program Files/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458473887 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
   "C:/Program Files/MiKTeX/fonts/tfm/adobe/helvetic/phvb8r.tfm" 1136783054 4484 b828043cbd581d289d955903c1339981 ""
   "C:/Program Files/MiKTeX/fonts/tfm/adobe/helvetic/phvb8t.tfm" 1136783054 6628 34c39492c0adc454c1c199922bba8363 ""
@@ -157,13 +157,13 @@
   "C:/Users/bravo/AppData/Roaming/MiKTeX/tex/latex/setspace/setspace.sty" 1670403145 22490 8cac309b79a4c53a4ffce4b1b07aead0 ""
   "C:/Users/bravo/AppData/Roaming/MiKTeX/tex/latex/textcase/textcase.sty" 1740138976 3164 6b6fe33a41126007f2392b3b931bd33f ""
   "C:/Users/bravo/AppData/Roaming/MiKTeX/tex/latex/xpatch/xpatch.sty" 1585221260 8510 7803f78066c4f9d008405191a4b43073 ""
-  "c:/Users/bravo/OneDrive/Engenharia Elétrica/Teoria da decisao/td-2025-1/latex/tc1.tex" 1745094056 8684 183d1298fcc2051b8387a558692550cc ""
+  "c:/Users/bravo/OneDrive/Engenharia Elétrica/Teoria da decisao/td-2025-1/latex/tc1.tex" 1745282911 8721 4059393aaf34c4c5568b3f6d6de61edd ""
   "elementos-pre-textuais/capa.tex" 1745093655 484 d8f9094a939ddcfa083819220623c002 ""
   "elementos-pre-textuais/sumario.tex" 1745090689 114 a09651546dc4163efd9b3c19065f0730 ""
-  "tc1.aux" 1745094059 3748 f61f345747dbd79022ffd745428d5ed6 "pdflatex"
+  "tc1.aux" 1745282938 4188 9057951bc697523cbf517eac5477cced "pdflatex"
   "tc1.ind" 1745093689 0 d41d8cd98f00b204e9800998ecf8427e "makeindex tc1.idx"
-  "tc1.tex" 1745094056 8684 183d1298fcc2051b8387a558692550cc ""
-  "tc1.toc" 1745094059 672 b462e484e11c44bdaeb81324c650dba9 "pdflatex"
+  "tc1.tex" 1745282911 8721 4059393aaf34c4c5568b3f6d6de61edd ""
+  "tc1.toc" 1745282938 755 7bd8334094ea3ea31bdcad000b9f527a "pdflatex"
   (generated)
   "tc1.aux"
   "tc1.idx"
