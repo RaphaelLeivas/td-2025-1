@@ -51,11 +51,6 @@ Universidade Federal de Minas Gerais
     \titlepage
 \end{frame}
 
-\begin{frame}
-    \frametitle{Sumário}
-    \tableofcontents
-\end{frame}
-
 \section{Modelagem}
 
     \begin{frame}
@@ -263,11 +258,46 @@ Universidade Federal de Minas Gerais
         \frametitle{BVNS - Basic Variable Neighborhood Search}
         \begin{algorithm}[H]
             \caption{Função FirstImprovemnt.}\label{alg:first-improvement}
+            \Comment{Busca uma solução na vizinhança de \textbf{x} melhor que \textbf{x}.}
+
             \begin{algorithmic}[1]
             \Procedure{FirstImprovement}{\textbf{x}, \textbf{x'}, k}
+
+            \State $\textbf{N} \gets$ 100 vizinhos aleatórios da k-ésima vizinhança
+
+
+            \ForAll {\textbf{v} \textbf{in} \textbf{N}}
+                \If{$f(\textbf{v}) < f(\textbf{x})$}
+                    \State \textbf{return v} 
+                \EndIf
+            \EndFor
                
             \Statex
-            \State \textbf{return y} 
+            \State \textbf{return x} 
+            \EndProcedure 
+            \end{algorithmic}
+        \end{algorithm}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{BVNS - Basic Variable Neighborhood Search}
+        \begin{algorithm}[H]
+            \caption{Heurística construtiva para gerar a solução inicial.}\label{alg:sol-inicial}
+            \begin{algorithmic}[1]
+            \Procedure{SolucaoInicial}{\null}
+
+            \State \textbf{x} $\gets$ Solução aleatória
+
+            \ForAll {i \textbf{in} \textbf{x}}
+                \If{variancia($p_{ij} d_{i}$) $\geq$ limite}
+                    \State \textbf{x}[i] $\gets$ Manutenção mais cara
+                \Else
+                    \State \textbf{x}[i] $\gets$ Manutenção mais barata
+                \EndIf
+            \EndFor
+               
+            \Statex
+            \State \textbf{return x} 
             \EndProcedure 
             \end{algorithmic}
         \end{algorithm}

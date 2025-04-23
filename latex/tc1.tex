@@ -39,6 +39,9 @@
 \usepackage{algpseudocode}
 \usepackage{algorithm}
 \algnewcommand{\LineComment}[1]{\State \(\triangleright\) #1}
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\makeatother
 
 \graphicspath{ {./images/} }
 
@@ -182,8 +185,6 @@
 	
 \chapter{Introdução}\label{cap:introducao} 
 
-\lipsum[1-2]
-
 \chapter{Modelagem}\label{cap:modelagem} 
 
 Temos que modelar dois problemas mono-objetivos:
@@ -253,15 +254,33 @@ Note que na \autoref{eq:objf2} temos essencialmente um problema de programação
 
 \section{Modelagem Multiobjetivo}
 
+Juntando as modelagens dos problemas mono-objetivos acima, temos o 
+a modelagem multiobjetivo do problema.
+
+\[  \min f_1 = \sum_{i=1}^{N} \sum_{j=1}^{J} c_j x_{ij} \]
+
+\[  \min f_2 = \sum_{i=1}^{N} \sum_{j=1}^{J} p_{ij} \, d_i \, x_{ij} \]
+
+\[  x_{ij}: \un{se a máquina $i$ executa a manutenção $j$}  \]
+
+
+\noindent sujeito a
+
+\[ \sum_{j=1}^{J} x_{ij} = 1 \quad , \quad \forall i = {1, 2, ..., N} \]
+
+\[ x_{ij} \in \{0,1\} \quad , \quad i = \{1, 2, ..., N\}  \quad , \quad j = \{1, 2, ..., J\} \]
+
+
+
 \chapter{Algoritmos}\label{cap:algoritmos} 
 
 O Algoritmo \ref{alg:bvns} mostra a versão do BNVS implementada 
 no trabalho
 
-\begin{algorithm}[!htbp]
-    \caption{BVNS implementado no trabalho.}\label{alg:bvns}
-    \begin{algorithmic}[1]
-    \Procedure{BVNS}{\textbf{x}, k\textsubscript{max}}
+\begin{algorithm}[H]
+	\caption{BVNS implementado no trabalho.}\label{alg:bvns}
+	\begin{algorithmic}[1]
+	\Procedure{BVNS}{\textbf{x}, k\textsubscript{max}}
 		\While{num\_sol\_avaliadas $<$ max\_sol\_avaliadas}
 			\State k $\gets$ 1
 
@@ -271,24 +290,65 @@ no trabalho
 				\State $ \textbf{x}, k \gets$ \Call{NeighborhoodChange}{\textbf{x}, \textbf{x''}, k} 
 			\EndWhile
 		\EndWhile
-    \EndProcedure 
-    \end{algorithmic}
+	\EndProcedure 
+	\end{algorithmic}
+\end{algorithm}
+
+O Algoritmo \ref{alg:shake} mostra a função Shake.
+
+\begin{algorithm}[H]
+	\caption{Função Shake.}\label{alg:shake}
+	\Comment{Gera uma solução aleatória na k-ésima estrutura de vizinhança.}
+	\begin{algorithmic}[1]
+	\Procedure{Shake}{\textbf{x}, k}
+		\If{k = 1}
+			\State $\textbf{y} \gets$ 1-swap
+		\EndIf
+		\If{k = 2}
+			\State $\textbf{y} \gets$ Permutaçao de dois planos de manutenção
+		\EndIf
+		\If{k = 3}
+			\State $\textbf{y} \gets$ Mudança de um bloco de máquinas para outro plano
+		\EndIf
+	\Statex
+	\State \textbf{return y} 
+
+	\EndProcedure 
+	\end{algorithmic}
+\end{algorithm}
+
+O Algoritmo \ref{alg:sol-inicial} mostra a heurística construtiva.
+
+\begin{algorithm}[H]
+	\caption{Heurística construtiva para gerar a solução inicial.}\label{alg:sol-inicial}
+	\begin{algorithmic}[1]
+	\Procedure{SolucaoInicial}{\null}
+
+	\State \textbf{x} $\gets$ Solução aleatória
+
+	\ForAll {i \textbf{in} \textbf{x}}
+		\If{variancia($p_{ij} d_{i}$) $\geq$ limite}
+			\State \textbf{x}[i] $\gets$ Manutenção mais cara
+		\Else
+			\State \textbf{x}[i] $\gets$ Manutenção mais barata
+		\EndIf
+	\EndFor
+	   
+	\Statex
+	\State \textbf{return x} 
+	\EndProcedure 
+	\end{algorithmic}
 \end{algorithm}
 
 
 \chapter{Resultados e Discussão}\label{cap:resultados} 
 
-\lipsum[1-2]
 
 
 \chapter{Conclusão}\label{cap:conclusao} 
 
-\lipsum[1-2]
-
 
 \chapter{Referências}\label{cap:referencias} 
-
-\lipsum[1-2]
 
 
 \end{document}
