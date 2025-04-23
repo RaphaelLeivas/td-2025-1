@@ -2,6 +2,14 @@
 
 \usepackage{amsmath} 
 
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\algnewcommand{\LineComment}[1]{\State \(\triangleright\) #1}
+
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\makeatother
+
 \setbeamertemplate{footline}[frame number]
 \beamertemplatenavigationsymbolsempty
 \usecolortheme{beaver}
@@ -190,19 +198,79 @@ Universidade Federal de Minas Gerais
     \begin{frame}
         \frametitle{Representação Computacional}
 
-        \begin{center}
-            TESTE
-        \end{center}
+        \begin{itemize}
+            \item Vetor de tamanho $N = 500$
+            \item Cada posição $i$ indica o custo da manutenção associada ao equipamento $i$
+        \end{itemize}
+
+        \[ x = \begin{bmatrix} 2 & 0 & 1 & \cdots & 2 \end{bmatrix} \]
+
+        \begin{itemize}
+            \item Equipamento 1 executa manuteção de custo 2
+            \item Equipamento 2 executa manuteção de custo 0
+            \[  \cdots  \]
+            \item Equipamento 500 executa manuteção de custo 2
+        \end{itemize}
     \end{frame}
 
 
 \subsection{BVNS - Basic Variable Neighborhood Search}
     \begin{frame}
         \frametitle{BVNS - Basic Variable Neighborhood Search}
+        \begin{algorithm}[H]
+            \caption{BVNS implementado no trabalho.}\label{alg:bvns}
+            \begin{algorithmic}[1]
+            \Procedure{BVNS}{\textbf{x}, k\textsubscript{max}}
+                \While{num\_sol\_avaliadas $<$ max\_sol\_avaliadas}
+                    \State k $\gets$ 1
+        
+                    \While{k $<$ k\textsubscript{max}}
+                        \State $ \textbf{x'} \gets$ \Call{Shake}{\textbf{x}, k} 
+                        \State $ \textbf{x''} \gets$ \Call{FirstImprovement}{\textbf{x}, \textbf{x'}, k} 
+                        \State $ \textbf{x}, k \gets$ \Call{NeighborhoodChange}{\textbf{x}, \textbf{x''}, k} 
+                    \EndWhile
+                \EndWhile
+            \EndProcedure 
+            \end{algorithmic}
+        \end{algorithm}
+    \end{frame}
 
-        \begin{center}
-            TESTE
-        \end{center}
+    \begin{frame}
+        \frametitle{BVNS - Basic Variable Neighborhood Search}
+        \begin{algorithm}[H]
+            \caption{Função Shake.}\label{alg:shake}
+            \Comment{Gera uma solução aleatória na k-ésima estrutura de vizinhança.}
+            \begin{algorithmic}[1]
+            \Procedure{Shake}{\textbf{x}, k}
+                \If{k = 1}
+                    \State $\textbf{y} \gets$ 1-swap
+                \EndIf
+                \If{k = 2}
+                    \State $\textbf{y} \gets$ Permutaçao de dois planos de manutenção
+                \EndIf
+                \If{k = 3}
+                    \State $\textbf{y} \gets$ Mudança de um bloco de máquinas para outro plano
+                \EndIf
+            \Statex
+            \State \textbf{return y} 
+
+            \EndProcedure 
+            \end{algorithmic}
+        \end{algorithm}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{BVNS - Basic Variable Neighborhood Search}
+        \begin{algorithm}[H]
+            \caption{Função FirstImprovemnt.}\label{alg:first-improvement}
+            \begin{algorithmic}[1]
+            \Procedure{FirstImprovement}{\textbf{x}, \textbf{x'}, k}
+               
+            \Statex
+            \State \textbf{return y} 
+            \EndProcedure 
+            \end{algorithmic}
+        \end{algorithm}
     \end{frame}
 
 \section{Resultados}

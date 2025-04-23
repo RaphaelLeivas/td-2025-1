@@ -36,6 +36,10 @@
 \usepackage{soul}
 \usepackage{lscape}
 
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\algnewcommand{\LineComment}[1]{\State \(\triangleright\) #1}
+
 \graphicspath{ {./images/} }
 
 % ---
@@ -251,7 +255,25 @@ Note que na \autoref{eq:objf2} temos essencialmente um problema de programação
 
 \chapter{Algoritmos}\label{cap:algoritmos} 
 
-\lipsum[1-2]
+O Algoritmo \ref{alg:bvns} mostra a versão do BNVS implementada 
+no trabalho
+
+\begin{algorithm}[!htbp]
+    \caption{BVNS implementado no trabalho.}\label{alg:bvns}
+    \begin{algorithmic}[1]
+    \Procedure{BVNS}{\textbf{x}, k\textsubscript{max}}
+		\While{num\_sol\_avaliadas $<$ max\_sol\_avaliadas}
+			\State k $\gets$ 1
+
+			\While{k $<$ k\textsubscript{max}}
+				\State $ \textbf{x'} \gets$ \Call{Shake}{\textbf{x}, k} 
+				\State $ \textbf{x''} \gets$ \Call{FirstImprovement}{\textbf{x}, \textbf{x'}, k} 
+				\State $ \textbf{x}, k \gets$ \Call{NeighborhoodChange}{\textbf{x}, \textbf{x''}, k} 
+			\EndWhile
+		\EndWhile
+    \EndProcedure 
+    \end{algorithmic}
+\end{algorithm}
 
 
 \chapter{Resultados e Discussão}\label{cap:resultados} 
