@@ -220,7 +220,7 @@ independe do equipamento $i$ que estamos executando a manutenção. Temos a fun�
 \end{equation}
 
 A \autoref{eq:restf1} indica que todo equipamento executa exatamente uma política de manutenção.
-Além disso, note que solução de \autoref{eq:restf1} é trivial: basta escolher o plano de 
+Além disso, note que solução da \autoref{eq:objf1} é trivial: basta escolher o plano de 
 manutenção com o menor custo para todos os equipamentos.
 
 \section{Problema 2}
@@ -249,10 +249,22 @@ F_i(t) = 1 - \exp \left[ - \left( \frac{t}{\eta_i} \right)^{\beta_i} \right]
 \end{equation}
 
 Note que na \autoref{eq:objf2} temos essencialmente um problema de programação linear inteira.
+Assim, é possível usar o método Simplex visto em Pesquisa Operacional para resolver esse problema
+com garantia de otimalidade. Usando o Simplex, a solução encontrada foi 
+
+\[ \mathbf{x^{*}}  = \begin{bmatrix} 
+	0 & 0 & 1 \\
+	0 & 0 & 1 \\
+	\vdots & \vdots & \vdots \\
+	0 &  0      & 1 
+	\end{bmatrix} \quad , \quad f_2\left(\mathbf{x^{*}}\right) = 1048.17  \]
+
+Assim, antes mesmo de começar a implementar o BVNS para resolver os problemas isoladamente, 
+já sabemos as soluções ótimas para eles.
 
 \section{Modelagem Multiobjetivo}
 
-Juntando as modelagens dos problemas mono-objetivos acima, temos o 
+Juntando as modelagens dos problemas mono-objetivos acima, temos 
 a modelagem multiobjetivo do problema.
 
 \[  \min f_1 = \sum_{i=1}^{N} \sum_{j=1}^{J} c_j x_{ij} \]
@@ -328,9 +340,11 @@ são vizinhaças de refinamento, mas com abordagens diferentes. E a terceira é 
 
 O Algoritmo \ref{alg:first-improvement} mostra a função de busca local
 implementanda após gerar uma solução aleatória com o Shake. Ela basicamente 
-realiza uma busca em até $N = 100$ vizinhos à solução do Shake, e retorna a primeira 
-solução cujo valor da solução objetivo é menor do que o valor de $f$ na 
-solução do Shake. 
+realiza uma busca em até $N = 100$ vizinhos à solução inicial \textbf{x'} do Shake, 
+e retorna a primeira 
+solução \textbf{x''} cujo valor da solução objetivo é menor do que o valor do objetivo na 
+solução inicial \textbf{x'} do Shake. Caso nenhuma solução melhor é encontrada, 
+retorna a solução inicial \textbf{x'}.
 
 \begin{algorithm}[H]
 	\caption{Função FirstImprovement.}\label{alg:first-improvement}
@@ -386,11 +400,11 @@ do FirstImprovement.
 
 \section{Heurística Construtiva}
 
-O Algoritmo \ref{alg:sol-inicial} mostra a heurística construtiva utilizada para a criação da solução inicial. Basicamente o probema se reduz
+O Algoritmo \ref{alg:sol-inicial} mostra a heurística construtiva utilizada para a criação da solução inicial. Basicamente o problema se reduz
 em escolher um plano de manutenção, dentre os três disponíveis, para cada equipamento minimizando o custo da manutenção e o custo de falha dos equipamentos.
 A minimização do custo da manutenção se dá escolhendo a manutenção mais barata para todos os equipamentos, e a minimização do custo de falha escolhendo a manutenção mais cara.
 
-Olhando para o segundo problema, temos a matriz de custos de falha $p_{ij}d_{i}$ onde $i$ é cada equipamento e $j$ os planos de manutencão, para cada equipamento $i$ fixo avalia-se a
+Olhando para o segundo problema, temos a matriz de custos de falha $p_{ij}d_{i}$ onde $i$ é cada equipamento e $j$ os planos de manutencão. Para cada equipamento $i$ fixo avalia-se a
 variância de $p_{ij}d_{i}$ e caso esse valor seja maior que o limiar de $0.5$ escolhe a manutenção mais cara para compor a solução inicial daquele equipamento,
 caso seja menor que o limiar é escolhida a manutenção mais barata. 
 
@@ -428,7 +442,7 @@ A \autoref{fig:convergencia_execucoes_p1} mostra a convergência de 5 execuçõe
 do BNVS para o Problema 1 Isolado. A solução final encontrada foi 
 
 
-\[  x^* = \begin{bmatrix} 0 & 0 & 0 & \cdots & 0 \end{bmatrix} \quad , \quad f\left(x^*\right) = 0 \pm 0 \]
+\[  \mathbf{x^*} = \begin{bmatrix} 0 & 0 & 0 & \cdots & 0 \end{bmatrix} \quad , \quad f\left(\mathbf{x^*}\right) = 0 \pm 0 \]
 
 
 \begin{figure}[h!]
@@ -448,7 +462,7 @@ tem solução trivial. Cada iteração gastou em média 5 segundos para executar
 A \autoref{fig:convergencia_execucoes} mostra a convergência de 5 execuções
 para o Problema 2. A solução final encontrada foi 
 
-\[  x^* = \begin{bmatrix} 2 & 2 & 2 & \cdots & 2 \end{bmatrix} \quad , \quad f\left(x^*\right) = 1048.2 \pm 0 \]
+\[  \mathbf{x^*} = \begin{bmatrix} 2 & 2 & 2 & \cdots & 2 \end{bmatrix} \quad , \quad f\left(\mathbf{x^*}\right) = 1048.2 \pm 0 \]
 
 \begin{figure}[h!]
 	\caption{\label{fig:convergencia_execucoes}Convergência do BNVS implementado para o Problema 1 Isolado.}
