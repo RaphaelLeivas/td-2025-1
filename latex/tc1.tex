@@ -182,8 +182,6 @@
 \textual
 
 \pagestyle{simple}
-	
-\chapter{Introdução}\label{cap:introducao} 
 
 \chapter{Modelagem}\label{cap:modelagem} 
 
@@ -271,11 +269,12 @@ a modelagem multiobjetivo do problema.
 \[ x_{ij} \in \{0,1\} \quad , \quad i = \{1, 2, ..., N\}  \quad , \quad j = \{1, 2, ..., J\} \]
 
 
-
 \chapter{Algoritmos}\label{cap:algoritmos} 
 
+\section{BVNS - Basic Variable Neighborhood Search}
+
 O Algoritmo \ref{alg:bvns} mostra a versão do BNVS implementada 
-no trabalho
+no trabalho.
 
 \begin{algorithm}[H]
 	\caption{BVNS implementado no trabalho.}\label{alg:bvns}
@@ -325,13 +324,77 @@ são vizinhaças de refinamento, mas com abordagens diferentes. E a terceira é 
 	\end{algorithmic}
 \end{algorithm}
 
+\section{Estratégias de Refinamento}
+
+O Algoritmo \ref{alg:first-improvement} mostra a função de busca local
+implementanda após gerar uma solução aleatória com o Shake. Ela basicamente 
+realiza uma busca em até $N = 100$ vizinhos à solução do Shake, e retorna a primeira 
+solução cujo valor da solução objetivo é menor do que o valor de $f$ na 
+solução do Shake. 
+
+\begin{algorithm}[H]
+	\caption{Função FirstImprovement.}\label{alg:first-improvement}
+	\Comment{Busca uma primeira solução na vizinhança de \textbf{x'} melhor que \textbf{x'}.}
+
+	\begin{algorithmic}[1]
+	\Procedure{FirstImprovement}{\textbf{x'}, k}
+
+	\State $N\gets$ 100 
+
+	\ForAll {i \textbf{in} range($N$)}
+		\State \textbf{x''} $\gets$ \Call{Shake}{\textbf{x'}, k} 
+		\If{$f(\textbf{x''}) < f(\textbf{x'})$}
+			\State \textbf{return x''} 
+		\EndIf
+	\EndFor
+		
+	\Statex
+	\State \textbf{return x'} 
+	\EndProcedure 
+	\end{algorithmic}
+\end{algorithm}
+
+É possível fazer uma pequena modificação no Algoritmo \ref{alg:first-improvement} 
+para obter o Best Improvement, exibido no Algoritmo \ref{alg:best-improvement}. 
+Note que essa função sempre executa as $N$ buscas por uma melhor solução, e 
+portanto o código é mais caro computacionalmente que no Algoritmo \ref{alg:first-improvement}.
+No entanto, em geral, a solução encontrada pelo BestImprovement será melhor que a 
+do FirstImprovement.
+
+\begin{algorithm}[H]
+	\caption{Função BestImprovement.}\label{alg:best-improvement}
+	\Comment{Busca a melhor solução na vizinhança de \textbf{x'} melhor que \textbf{x'}.}
+
+	\begin{algorithmic}[1]
+	\Procedure{BestImprovement}{\textbf{x'}, k}
+
+	\State $N\gets$ 100 
+	\State \textbf{x\_melhor} $\gets$ \textbf{x'}
+
+	\ForAll {i \textbf{in} range($N$)}
+		\State \textbf{x''} $\gets$ \Call{Shake}{\textbf{x'}, k} 
+		\If{$f$(\textbf{x''}) $<$ $f$(\textbf{x\_melhor})}
+			\State \textbf{x\_melhor} $\gets$ \textbf{x''}
+		\EndIf
+	\EndFor
+		
+	\Statex
+	\State \textbf{return x\_melhor} 
+	\EndProcedure 
+	\end{algorithmic}
+\end{algorithm}
+
+\section{Heurística Construtiva}
 
 O Algoritmo \ref{alg:sol-inicial} mostra a heurística construtiva utilizada para a criação da solução inicial. Basicamente o probema se reduz
 em escolher um plano de manutenção, dentre os três disponíveis, para cada equipamento minimizando o custo da manutenção e o custo de falha dos equipamentos.
 A minimização do custo da manutenção se dá escolhendo a manutenção mais barata para todos os equipamentos, e a minimização do custo de falha escolhendo a manutenção mais cara.
+
 Olhando para o segundo problema, temos a matriz de custos de falha $p_{ij}d_{i}$ onde $i$ é cada equipamento e $j$ os planos de manutencão, para cada equipamento $i$ fixo avalia-se a
 variância de $p_{ij}d_{i}$ e caso esse valor seja maior que o limiar de $0.5$ escolhe a manutenção mais cara para compor a solução inicial daquele equipamento,
-caso seja menor que o limiar é escolhida a manutenção mais barata. A lógica envolvida é que se o custo de falha não varia tanto para aquele equipamento,
+caso seja menor que o limiar é escolhida a manutenção mais barata. 
+
+A lógica envolvida é que se o custo de falha não varia tanto para aquele equipamento,
 não é necessário a manutenção mais cara.
 
 \begin{algorithm}[H]
@@ -359,11 +422,61 @@ não é necessário a manutenção mais cara.
 \chapter{Resultados e Discussão}\label{cap:resultados} 
 
 
+\section{Problema 1}
 
-\chapter{Conclusão}\label{cap:conclusao} 
+A \autoref{fig:convergencia_execucoes_p1} mostra a convergência de 5 execuções 
+do BNVS para o Problema 1 Isolado. A solução final encontrada foi 
+
+
+\[  x^* = \begin{bmatrix} 0 & 0 & 0 & \cdots & 0 \end{bmatrix} \quad , \quad f\left(x^*\right) = 0 \pm 0 \]
+
+
+\begin{figure}[h!]
+	\caption{\label{fig:convergencia_execucoes_p1}Convergência do BNVS implementado para o Problema 1 Isolado.}
+	\begin{center}
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{convergencia_execucoes_p1.png}
+	\end{center}
+	\legend{Fonte: elaboração própria.}
+\end{figure}
+
+Vemos que o algoritmo converge após 300 iterações para a solução 
+ótima global, que já sabemos a priori uma vez que o problema modelado 
+tem solução trivial. Cada iteração gastou em média 5 segundos para executar.
+
+\section{Problema 2}
+
+A \autoref{fig:convergencia_execucoes} mostra a convergência de 5 execuções
+para o Problema 2. A solução final encontrada foi 
+
+\[  x^* = \begin{bmatrix} 2 & 2 & 2 & \cdots & 2 \end{bmatrix} \quad , \quad f\left(x^*\right) = 1048.2 \pm 0 \]
+
+\begin{figure}[h!]
+	\caption{\label{fig:convergencia_execucoes}Convergência do BNVS implementado para o Problema 1 Isolado.}
+	\begin{center}
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{convergencia_execucoes.png}
+	\end{center}
+	\legend{Fonte: elaboração própria.}
+\end{figure}
+
+De forma similiar ao Problema 2, vemos que o algoritmo converge após 500 iterações para a solução 
+ótima global dada pelo Simplex. Cada iteração gastou em média 12 segundos para executar.
+
+\section{Comparação de Estratégias de Refinamento}
+
+As convergências das Figuras \ref{fig:convergencia_execucoes_p1} e \ref{fig:convergencia_execucoes}
+foram obtidas usando o BVNS com o FirstImprovement. Com o BestImprovement, obtemos 
+as convergências das Figuras \hl{completas}
+
+
+
+
+Vemos que com o BestImprovement o algoritmo converge com menos iterações, no entanto 
+ele gasta mais tempo para executar uma vez que o custo computacional de cada iteração é maior.
+Não obstante, ambas estratégias convergiram para a mesma solução ótima global.
 
 
 \chapter{Referências}\label{cap:referencias} 
 
+\noindent M. Gendreau, J.-Y. Potvin (eds.), Handbook of Metaheuristics, Springer, 2nd ed., 2010.
 
 \end{document}

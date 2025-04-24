@@ -191,7 +191,7 @@ Universidade Federal de Minas Gerais
         
                     \While{k $<$ k\textsubscript{max}}
                         \State $ \textbf{x'} \gets$ \Call{Shake}{\textbf{x}, k} 
-                        \State $ \textbf{x''} \gets$ \Call{FirstImprovement}{\textbf{x}, \textbf{x'}, k} 
+                        \State $ \textbf{x''} \gets$ \Call{FirstImprovement}{\textbf{x'}, k} 
                         \State $ \textbf{x}, k \gets$ \Call{NeighborhoodChange}{\textbf{x}, \textbf{x''}, k} 
                     \EndWhile
                 \EndWhile
@@ -211,10 +211,10 @@ Universidade Federal de Minas Gerais
                     \State $\textbf{y} \gets$ 1-swap
                 \EndIf
                 \If{k = 2}
-                    \State $\textbf{y} \gets$ Troca de planos de manutenção entre dois equipamentos
+                    \State $\textbf{y} \gets$ Troca de planos de manutenção entre dois eqptos
                 \EndIf
                 \If{k = 3}
-                    \State $\textbf{y} \gets$ Mudança de um bloco de 50 equipamentos para outro plano
+                    \State $\textbf{y} \gets$ Mudança de um bloco de 50 eqptos para outro plano
                 \EndIf
             \Statex
             \State \textbf{return y} 
@@ -228,22 +228,22 @@ Universidade Federal de Minas Gerais
         \frametitle{BVNS - Basic Variable Neighborhood Search}
         \begin{algorithm}[H]
             \caption{Função FirstImprovement.}\label{alg:first-improvement}
-            \Comment{Busca uma solução na vizinhança de \textbf{x} melhor que \textbf{x}.}
+            \Comment{Busca uma primeira solução na vizinhança de \textbf{x'} melhor que \textbf{x'}.}
 
             \begin{algorithmic}[1]
-            \Procedure{FirstImprovement}{\textbf{x}, \textbf{x'}, k}
+            \Procedure{FirstImprovement}{\textbf{x'}, k}
 
-            \State $\textbf{N} \gets$ 100 vizinhos aleatórios da k-ésima vizinhança
+            \State $N\gets$ 100 
 
-
-            \ForAll {\textbf{v} \textbf{in} \textbf{N}}
-                \If{$f(\textbf{v}) < f(\textbf{x})$}
-                    \State \textbf{return v} 
+            \ForAll {i \textbf{in} range($N$)}
+                \State \textbf{x''} $\gets$ \Call{Shake}{\textbf{x'}, k} 
+                \If{$f(\textbf{x''}) < f(\textbf{x'})$}
+                    \State \textbf{return x''} 
                 \EndIf
             \EndFor
                
             \Statex
-            \State \textbf{return x} 
+            \State \textbf{return x'} 
             \EndProcedure 
             \end{algorithmic}
         \end{algorithm}
