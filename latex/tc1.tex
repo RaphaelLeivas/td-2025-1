@@ -465,15 +465,50 @@ De forma similiar ao Problema 2, vemos que o algoritmo converge após 500 itera�
 
 As convergências das Figuras \ref{fig:convergencia_execucoes_p1} e \ref{fig:convergencia_execucoes}
 foram obtidas usando o BVNS com o FirstImprovement. Com o BestImprovement, obtemos 
-as convergências das Figuras \hl{completas}
+as convergências das Figuras \ref{fig:bestImprovement_p1} e \ref{fig:bestImprovement_p2} para os Problemas 1 e 2, 
+respectivamente.
 
+\begin{figure}[h!]
+	\caption{\label{fig:bestImprovement_p1}Convergência do BNVS implementado para o Problema 1 usando a Best Improvement.}
+	\begin{center}
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{bestImprovement_p1.png}
+	\end{center}
+	\legend{Fonte: elaboração própria.}
+\end{figure}
 
+\begin{figure}[h!]
+	\caption{\label{fig:bestImprovement_p2}Convergência do BNVS implementado para o Problema 2 usando a Best Improvement.}
+	\begin{center}
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{bestImprovement_p2.png}
+	\end{center}
+	\legend{Fonte: elaboração própria.}
+\end{figure}
 
-
-Vemos que com o BestImprovement o algoritmo converge com menos iterações, no entanto 
+Vemos que com o BestImprovement o algoritmo converge com menos iterações quando comparado com o FirstImprovement:
+antes precisava de 300 e 500 iterações respectivamente; agora converge em 200 e 300.
+Contudo,
 ele gasta mais tempo para executar uma vez que o custo computacional de cada iteração é maior.
+Em particular, o Problema 2 gasta mais de 40 segundos por execução com o Best Improvement, sendo que antes gastava
+apenas 12.
 Não obstante, ambas estratégias convergiram para a mesma solução ótima global.
 
+\section{Comparação de Heurísticas Construtivas}
+
+Por fim, podemos comparar a convergência para o Problema 2, usando a FirstImprovement, entre execuções
+que usam ou não a heurística construtiva do Algoritmo \ref{alg:sol-inicial}. A \autoref{fig:semConstrutiva_p2} mostra 
+a convergência sem usar a heurística construtiva, isto é, usando uma solução inicial aleatória.
+
+\begin{figure}[h!]
+	\caption{\label{fig:semConstrutiva_p2}Convergência do BNVS para o Problema 2 sem usar a heusrística construtiva.}
+	\begin{center}
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{semConstrutiva_p2.png}
+	\end{center}
+	\legend{Fonte: elaboração própria.}
+\end{figure}
+
+Comparando as Figuras \ref{fig:semConstrutiva_p2} e \ref{fig:convergencia_execucoes}, vemos que a heurística construtiva 
+adotada consegue convergir mais rapidamente que algumas solução iniciais aleatórias. No entanto, ainda temos soluções aleatórias 
+que convergem mais rápido, indicando que é possível pensar em uma solução inicial melhor para o problema.
 
 \chapter{Referências}\label{cap:referencias} 
 
