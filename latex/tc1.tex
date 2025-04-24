@@ -201,7 +201,7 @@ equipamentos e $J$ o número de políticas de manutenção, definimos a variáve
 por
 
 \begin{equation}
-	x_{ij}: \un{se a máquina $i$ executa a manutenção $j$}
+	x_{ij}: \un{se o equipamento $i$ executa a manutenção $j$}
 \end{equation}
 
 \noindent onde 
@@ -209,7 +209,7 @@ por
 \[ x_{ij} \in \{0,1\} \quad , \quad i = \{1, 2, ..., N\}  \quad , \quad j = \{1, 2, ..., J\} \]
 
 Para a função objetivo, seja $c_j$ o custo de executar a manutenção $j$. Note que esse custo 
-independe da máquina $i$ que estamos executando a manutenção. Temos a função objetivo  
+independe do equipamento $i$ que estamos executando a manutenção. Temos a função objetivo  
 
 \begin{equation}\label{eq:objf1}
 	\min f_1 = \sum_{i=1}^{N} \sum_{j=1}^{J} c_j x_{ij}
@@ -221,7 +221,7 @@ independe da máquina $i$ que estamos executando a manutenção. Temos a funçã
 	\sum_{j=1}^{J} x_{ij} = 1 \quad , \quad \forall i = {1, 2, ..., N}
 \end{equation}
 
-A \autoref{eq:restf1} indica que toda máquina executa exatamente uma política de manutenção.
+A \autoref{eq:restf1} indica que todo equipamento executa exatamente uma política de manutenção.
 Além disso, note que solução de \autoref{eq:restf1} é trivial: basta escolher o plano de 
 manutenção com o menor custo para todos os equipamentos.
 
@@ -261,7 +261,7 @@ a modelagem multiobjetivo do problema.
 
 \[  \min f_2 = \sum_{i=1}^{N} \sum_{j=1}^{J} p_{ij} \, d_i \, x_{ij} \]
 
-\[  x_{ij}: \un{se a máquina $i$ executa a manutenção $j$}  \]
+\[  x_{ij}: \un{se o equipamento $i$ executa a manutenção $j$}  \]
 
 
 \noindent sujeito a
@@ -294,7 +294,15 @@ no trabalho
 	\end{algorithmic}
 \end{algorithm}
 
-O Algoritmo \ref{alg:shake} mostra a função Shake.
+O Algoritmo \ref{alg:shake} mostra a função Shake. Nela estão definidas as três estruturas de vizinhança escolhidas para implementação. As duas primeiras
+são vizinhaças de refinamento, mas com abordagens diferentes. E a terceira é uma vizinhança de perturbação para buscar sair de mínimos locais:
+\begin{itemize}
+	\item A primeira estrutura é o que chamamos de um movimento de \textit{1-swap}, onde é escolhido aleatorimente um equipamento e trocado seu plano para um dos outros dois
+	restantes, a escolha do plano também é aleatória.
+	\item A segunda estrutura é a troca ou permutação dos planos de dois equipamentos diferentes escolhidos também aleatóriamente.
+	\item A terceira estrutura por sua vez, altera um bloco de 50 equipamentos em sequência, onde o início do bloco é aleatório. Nesse bloco é avaliado qual o plano mais comum
+	e troca-se o plano de manutenção de todos os integrantes do bloco para um mesmo plano, diferente do mais comum encontrado anteriormente.
+\end{itemize}
 
 \begin{algorithm}[H]
 	\caption{Função Shake.}\label{alg:shake}
@@ -305,10 +313,10 @@ O Algoritmo \ref{alg:shake} mostra a função Shake.
 			\State $\textbf{y} \gets$ 1-swap
 		\EndIf
 		\If{k = 2}
-			\State $\textbf{y} \gets$ Permutaçao de dois planos de manutenção
+			\State $\textbf{y} \gets$ Permutação de dois planos de manutenção
 		\EndIf
 		\If{k = 3}
-			\State $\textbf{y} \gets$ Mudança de um bloco de máquinas para outro plano
+			\State $\textbf{y} \gets$ Mudança de um bloco de equipamentos para outro plano
 		\EndIf
 	\Statex
 	\State \textbf{return y} 
@@ -317,7 +325,14 @@ O Algoritmo \ref{alg:shake} mostra a função Shake.
 	\end{algorithmic}
 \end{algorithm}
 
-O Algoritmo \ref{alg:sol-inicial} mostra a heurística construtiva.
+
+O Algoritmo \ref{alg:sol-inicial} mostra a heurística construtiva utilizada para a criação da solução inicial. Basicamente o probema se reduz
+em escolher um plano de manutenção, dentre os três disponíveis, para cada equipamento minimizando o custo da manutenção e o custo de falha dos equipamentos.
+A minimização do custo da manutenção se dá escolhendo a manutenção mais barata para todos os equipamentos, e a minimização do custo de falha escolhendo a manutenção mais cara.
+Olhando para o segundo problema, temos a matriz de custos de falha $p_{ij}d_{i}$ onde $i$ é cada equipamento e $j$ os planos de manutencão, para cada equipamento $i$ fixo avalia-se a
+variância de $p_{ij}d_{i}$ e caso esse valor seja maior que o limiar de $0.5$ escolhe a manutenção mais cara para compor a solução inicial daquele equipamento,
+caso seja menor que o limiar é escolhida a manutenção mais barata. A lógica envolvida é que se o custo de falha não varia tanto para aquele equipamento,
+não é necessário a manutenção mais cara.
 
 \begin{algorithm}[H]
 	\caption{Heurística construtiva para gerar a solução inicial.}\label{alg:sol-inicial}
@@ -327,7 +342,7 @@ O Algoritmo \ref{alg:sol-inicial} mostra a heurística construtiva.
 	\State \textbf{x} $\gets$ Solução aleatória
 
 	\ForAll {i \textbf{in} \textbf{x}}
-		\If{variancia($p_{ij} d_{i}$) $\geq$ limite}
+		\If{variancia($p_{ij} d_{i}$) $\geq$ limiar}
 			\State \textbf{x}[i] $\gets$ Manutenção mais cara
 		\Else
 			\State \textbf{x}[i] $\gets$ Manutenção mais barata
