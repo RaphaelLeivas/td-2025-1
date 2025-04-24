@@ -285,7 +285,7 @@ a modelagem multiobjetivo do problema.
 
 \section{BVNS - Basic Variable Neighborhood Search}
 
-O Algoritmo \ref{alg:bvns} mostra a versão do BNVS implementada 
+O Algoritmo \ref{alg:bvns} mostra a versão do BVNS implementada 
 no trabalho.
 
 \begin{algorithm}[H]
@@ -439,14 +439,14 @@ não é necessário a manutenção mais cara.
 \section{Problema 1}
 
 A \autoref{fig:convergencia_execucoes_p1} mostra a convergência de 5 execuções 
-do BNVS para o Problema 1 Isolado. A solução final encontrada foi 
+do BVNS para o Problema 1 Isolado. A solução final encontrada foi 
 
 
 \[  \mathbf{x^*} = \begin{bmatrix} 0 & 0 & 0 & \cdots & 0 \end{bmatrix} \quad , \quad f\left(\mathbf{x^*}\right) = 0 \pm 0 \]
 
 
 \begin{figure}[h!]
-	\caption{\label{fig:convergencia_execucoes_p1}Convergência do BNVS implementado para o Problema 1 Isolado.}
+	\caption{\label{fig:convergencia_execucoes_p1}Convergência do BVNS implementado para o Problema 1 Isolado.}
 	\begin{center}
     \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{convergencia_execucoes_p1.png}
 	\end{center}
@@ -465,7 +465,7 @@ para o Problema 2. A solução final encontrada foi
 \[  \mathbf{x^*} = \begin{bmatrix} 2 & 2 & 2 & \cdots & 2 \end{bmatrix} \quad , \quad f\left(\mathbf{x^*}\right) = 1048.2 \pm 0 \]
 
 \begin{figure}[h!]
-	\caption{\label{fig:convergencia_execucoes}Convergência do BNVS implementado para o Problema 1 Isolado.}
+	\caption{\label{fig:convergencia_execucoes}Convergência do BVNS implementado para o Problema 1 Isolado.}
 	\begin{center}
     \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{convergencia_execucoes.png}
 	\end{center}
@@ -483,7 +483,7 @@ as convergências das Figuras \ref{fig:bestImprovement_p1} e \ref{fig:bestImprov
 respectivamente.
 
 \begin{figure}[h!]
-	\caption{\label{fig:bestImprovement_p1}Convergência do BNVS implementado para o Problema 1 usando a Best Improvement.}
+	\caption{\label{fig:bestImprovement_p1}Convergência do BVNS implementado para o Problema 1 usando a Best Improvement.}
 	\begin{center}
     \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{bestImprovement_p1.png}
 	\end{center}
@@ -491,7 +491,7 @@ respectivamente.
 \end{figure}
 
 \begin{figure}[h!]
-	\caption{\label{fig:bestImprovement_p2}Convergência do BNVS implementado para o Problema 2 usando a Best Improvement.}
+	\caption{\label{fig:bestImprovement_p2}Convergência do BVNS implementado para o Problema 2 usando a Best Improvement.}
 	\begin{center}
     \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{bestImprovement_p2.png}
 	\end{center}
@@ -513,7 +513,7 @@ Não obstante, ambas estratégias convergiram para a mesma solução ótima glob
 % a convergência sem usar a heurística construtiva, isto é, usando uma solução inicial aleatória.
 
 % \begin{figure}[h!]
-% 	\caption{\label{fig:semConstrutiva_p2}Convergência do BNVS para o Problema 2 sem usar a heusrística construtiva.}
+% 	\caption{\label{fig:semConstrutiva_p2}Convergência do BVNS para o Problema 2 sem usar a heusrística construtiva.}
 % 	\begin{center}
 %     \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{semConstrutiva_p2.png}
 % 	\end{center}
