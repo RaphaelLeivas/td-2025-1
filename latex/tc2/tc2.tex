@@ -43,7 +43,7 @@
 \renewcommand{\ALG@name}{Algoritmo}
 \makeatother
 
-\graphicspath{ {./images/} }
+\graphicspath{ {../images/} }
 
 % ---
 % Pacotes de citações
@@ -173,8 +173,8 @@
 % ----------------------------------------------------------
 % ELEMENTOS PRÉ-TEXTUAIS
 % ----------------------------------------------------------
-\import{./elementos-pre-textuais}{capa.tex}
-\import{./elementos-pre-textuais}{sumario.tex}
+\import{../elementos-pre-textuais}{capa.tex}
+\import{../elementos-pre-textuais}{sumario.tex}
 
 % % ----------------------------------------------------------
 % % ELEMENTOS TEXTUAIS
@@ -183,89 +183,16 @@
 
 \pagestyle{simple}
 
-\chapter{Modelagem}\label{cap:modelagem} 
+\chapter{Modelagem Multiobjetivo}\label{cap:modelagem} 
 
-Temos que modelar dois problemas mono-objetivos:
+No TC01, modelamos duas funções objetivo:
 
 \begin{itemize}
-	\item Problema 1: minimização do custo de manutenção total $f_1 (\cdot)$
-	\item Problema 2: minimização do custo esperado de falha total $f_2 (\cdot)$
+	\item $f_1 (\cdot)$: minimização do custo de manutenção total 
+	\item $f_2 (\cdot)$: minimização do custo esperado de falha total
 \end{itemize}
 
-\section{Problema 1}
-
-Temos essencialmente um problema de designação simples. Seja $N$ o número de 
-equipamentos e $J$ o número de políticas de manutenção, definimos a variável de decisão $x_{ij}$ 
-por
-
-\begin{equation}
-	x_{ij}: \un{se o equipamento $i$ executa a manutenção $j$}
-\end{equation}
-
-\noindent onde 
-
-\[ x_{ij} \in \{0,1\} \quad , \quad i = \{1, 2, ..., N\}  \quad , \quad j = \{1, 2, ..., J\} \]
-
-Para a função objetivo, seja $c_j$ o custo de executar a manutenção $j$. Note que esse custo 
-independe do equipamento $i$ que estamos executando a manutenção. Temos a função objetivo  
-
-\begin{equation}\label{eq:objf1}
-	\min f_1 = \sum_{i=1}^{N} \sum_{j=1}^{J} c_j x_{ij}
-\end{equation}
-
-\noindent sujeito a 
-
-\begin{equation}\label{eq:restf1}
-	\sum_{j=1}^{J} x_{ij} = 1 \quad , \quad \forall i = {1, 2, ..., N}
-\end{equation}
-
-A \autoref{eq:restf1} indica que todo equipamento executa exatamente uma política de manutenção.
-Além disso, note que solução da \autoref{eq:objf1} é trivial: basta escolher o plano de 
-manutenção com o menor custo para todos os equipamentos.
-
-\section{Problema 2}
-
-O custo da falha de cada equipamento é dado pelo produto da probabilidade de falha $p_{ij}$ pelo custo da falha do equipamento,
-dada por $d_i$. Assim, temos 
-
-\begin{equation}\label{eq:objf2}
-	\min f_2 = \sum_{i=1}^{N} \sum_{j=1}^{J} p_{ij} \, d_i \, x_{ij}
-\end{equation}
-
-\noindent onde 
-
-\[ x_{ij} \in \{0,1\} \quad , \quad i = \{1, 2, ..., N\}  \quad , \quad j = \{1, 2, ..., J\} \]
-
-\[ 
-p_{ij} = \frac{F_i \left(t_0 + k_j \Delta t \right) - F_i\left(t_0\right) }{1 - F_i\left(t_0\right)}
-\quad , \quad 
-F_i(t) = 1 - \exp \left[ - \left( \frac{t}{\eta_i} \right)^{\beta_i} \right] 
-\]
-
-\noindent sujeito a 
-
-\begin{equation}\label{eq:restf2}
-	\sum_{j=1}^{J} x_{ij} = 1 \quad , \quad \forall i = {1, 2, ..., N}
-\end{equation}
-
-Note que na \autoref{eq:objf2} temos essencialmente um problema de programação linear inteira.
-Assim, é possível usar o método Simplex visto em Pesquisa Operacional para resolver esse problema
-com garantia de otimalidade. Usando o Simplex, a solução encontrada foi 
-
-\[ \mathbf{x^{*}}  = \begin{bmatrix} 
-	0 & 0 & 1 \\
-	0 & 0 & 1 \\
-	\vdots & \vdots & \vdots \\
-	0 &  0      & 1 
-	\end{bmatrix} \quad , \quad f_2\left(\mathbf{x^{*}}\right) = 1048.17  \]
-
-Assim, antes mesmo de começar a implementar o BVNS para resolver os problemas isoladamente, 
-já sabemos as soluções ótimas para eles.
-
-\section{Modelagem Multiobjetivo}
-
-Juntando as modelagens dos problemas mono-objetivos acima, temos 
-a modelagem multiobjetivo do problema.
+\noindent definidas por 
 
 \[  \min f_1 = \sum_{i=1}^{N} \sum_{j=1}^{J} c_j x_{ij} \]
 
@@ -273,12 +200,66 @@ a modelagem multiobjetivo do problema.
 
 \[  x_{ij}: \un{se o equipamento $i$ executa a manutenção $j$}  \]
 
-
 \noindent sujeito a
 
 \[ \sum_{j=1}^{J} x_{ij} = 1 \quad , \quad \forall i = {1, 2, ..., N} \]
 
 \[ x_{ij} \in \{0,1\} \quad , \quad i = \{1, 2, ..., N\}  \quad , \quad j = \{1, 2, ..., J\} \]
+
+Considerando agora esse problema multiobjeitvo, podemos aplicar duas abordagens escalares 
+para obter a fronteira Pareto-ótima no espaço de objetivos, descritas a seguir.
+
+\section{Formulação Soma Ponderada $P_{w}$}
+
+Seja $0 \leq w \leq 1$ um peso qualquer gerado aleatóriamente de uma distribução 
+uniforme no intervalo $[0, 1]$. Usando a abordagem da soma ponderada, podemos escrever nosso problema 
+multiobjetivo na forma: 
+
+\[  \min wf_1 + (1-w)f_2  \]
+
+
+
+\section{Formulação $\epsilon$-Restrito $P_{\epsilon}$}
+
+Com a abordagem do $\epsilon$-Restrito, vamos minimizar apenas $f_1$ 
+usando $f_2$ como restrição. Seja $\epsilon_2$ um real qualquer tal que  $\min f_2 \leq \epsilon_2 \leq \max f_2$.
+Temos 
+
+\begin{equation}\label{eq:objf2}
+	\min f_1
+\end{equation}
+
+\noindent sujeito a 
+
+\[ f_2 \leq \epsilon_2 \]
+
+\[ \sum_{j=1}^{J} x_{ij} = 1 \quad , \quad \forall i = {1, 2, ..., N} \]
+
+\[ x_{ij} \in \{0,1\} \quad , \quad i = \{1, 2, ..., N\}  \quad , \quad j = \{1, 2, ..., J\} \]
+
+\section{Normalização}
+
+Para garantir que as abordagens escalares sejam condizentes, precisamos normalizar $f_1$ e $f_2$ 
+através de 
+
+\[ 
+f_1(\mathbf{x}) = \frac{f_1(\mathbf{x}) - \min f_1}{\max f_1 - \min f_1}
+\quad , \quad 
+f_2(\mathbf{x}) = \frac{f_2(\mathbf{x}) - \min f_2}{\max f_2 - \min f_2} 
+\]
+
+A partir do tabalho realizado no TC01, já sabemos que 
+
+\[ 
+\min f_1 = 0 \quad , \quad 
+\max f_1 = 1000 \quad , \quad 
+\min f_2 = 1048.17 \quad , \quad 
+\max f_2 = 1745.49 
+\]
+
+\chapter{Solução via Simplex}\label{cap:simplex} 
+
+\chapter{Solução via BVNS}\label{cap:bnvs} 
 
 
 \chapter{Algoritmos}\label{cap:algoritmos} 

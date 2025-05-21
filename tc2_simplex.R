@@ -115,12 +115,17 @@ params$outputflag <- 0 # Suprimir saídas do Gurobi
 
 # ----------- Foramatação de dados finalizado: chama o Solver -----------
 
-w1 <- runif(400, min = 0, max = 1)
+w1 <- runif(2000, min = 0, max = 1)
 w2 <- 1 - w1
 
 f1_arr <- c()
 f2_arr <- c()
 
+min_f1 = 0
+max_f1 = 1000
+min_f2 = 1048.17 
+max_f2 = 1745.49 
+  
 for (i in 1:length(w1)) {
   model$obj <- w1[i] * f1_costsVec + w2[i] * f2_costsVec
   
@@ -130,11 +135,11 @@ for (i in 1:length(w1)) {
   optimalValue <- result$objval
   
   # calcula os valores de f1 2 f2
-  f1 <- t(f1_costsVec) %*% solution
+  f1 <- t(f1_costsVec) %*% solution 
   f2 <- t(f2_costsVec) %*% solution
   
-  f1_arr <- c(f1_arr, f1)
-  f2_arr <- c(f2_arr, f2)
+  f1_arr <- c(f1_arr, (f1 - min_f1) / (max_f1 - min_f1))
+  f2_arr <- c(f2_arr, (f2 - min_f2) / (max_f2 - min_f2))
 }
 
 plot(f1_arr, f2_arr, col = "red", lwd = 2, xlab = "f1", ylab = "f2", 
