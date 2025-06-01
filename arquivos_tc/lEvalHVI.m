@@ -2,7 +2,7 @@ clear all
 close all
 clc
 %=========================================================================
-CSVInput = 'resultados_pareto_somaPonderada_HVI.csv';
+CSVInput = 'fpareto_simplex_2000.csv';
 %=========================================================================
 
 [HVI] = EvalParetoApp(CSVInput);
