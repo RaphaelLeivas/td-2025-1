@@ -337,6 +337,32 @@ INPUT ..\images\tc2-epsilon.png
 INPUT ..\images\tc2-epsilon.png
 INPUT ..\images\tc2-epsilon.png
 INPUT ..\images\tc2-epsilon.png
+INPUT ..\images\Illustration-hypervolume-metric.png
+INPUT ..\images\Illustration-hypervolume-metric.png
+INPUT ..\images\Illustration-hypervolume-metric.png
+INPUT ..\images\Illustration-hypervolume-metric.png
+INPUT ..\images\Illustration-hypervolume-metric.png
+INPUT ..\images\Illustration-hypervolume-metric.png
+INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\helvetic\phvr8t.vf
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\helvetic\phvr8r.tfm
+INPUT ..\images\simplexHVI.png
+INPUT ..\images\simplexHVI.png
+INPUT ..\images\simplexHVI.png
+INPUT ..\images\simplexHVI.png
+INPUT ..\images\simplexHVI.png
+INPUT ..\images\simplexHVI.png
+INPUT ..\images\simplex2000HVI.png
+INPUT ..\images\simplex2000HVI.png
+INPUT ..\images\simplex2000HVI.png
+INPUT ..\images\simplex2000HVI.png
+INPUT ..\images\simplex2000HVI.png
+INPUT ..\images\simplex2000HVI.png
+INPUT ..\images\somaPonderadaHVI.png
+INPUT ..\images\somaPonderadaHVI.png
+INPUT ..\images\somaPonderadaHVI.png
+INPUT ..\images\somaPonderadaHVI.png
+INPUT ..\images\somaPonderadaHVI.png
+INPUT ..\images\somaPonderadaHVI.png
 OUTPUT tc2.toc
 INPUT tc2.aux
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx12.pfb
@@ -357,6 +383,8 @@ INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr8.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr8.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy10.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy10.pfb
+INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy8.pfb
+INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy8.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\urw\helvetic\uhvb8a.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\urw\helvetic\uhvb8a.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\urw\helvetic\uhvr8a.pfb

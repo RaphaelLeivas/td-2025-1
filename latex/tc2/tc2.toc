@@ -10,4 +10,9 @@
 \contentsline {section}{\numberline {3.1}Abordagem de Soma Ponderada}{7}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Abordagem $\epsilon $-Restrito}{7}{section.3.2}%
 \contentsline {chapter}{\chapternumberline {4}Indicadores de Qualidade}{9}{chapter.4}%
-\contentsline {chapter}{\chapternumberline {5}Referências}{10}{chapter.5}%
+\contentsline {subsection}{\numberline {4.0.1}Formulação Matemática}{9}{subsection.4.0.1}%
+\contentsline {subsection}{\numberline {4.0.2}Interpretação Geométrica}{9}{subsection.4.0.2}%
+\contentsline {subsection}{\numberline {4.0.3}Implementação}{10}{subsection.4.0.3}%
+\contentsline {subsection}{\numberline {4.0.4}Resultados Obtidos}{10}{subsection.4.0.4}%
+\contentsline {subsection}{\numberline {4.0.5}Considerações Finais}{11}{subsection.4.0.5}%
+\contentsline {chapter}{\chapternumberline {5}Referências}{12}{chapter.5}%

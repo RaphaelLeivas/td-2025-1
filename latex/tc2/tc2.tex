@@ -366,6 +366,10 @@ executando 5 vezes, obtemos a Fronteira Pareto-ótima exibida na
 	\legend{Fonte: elaboração própria.}
 \end{figure}
 
+Pela própria Figura \ref{fig:tc2-somaponderada} já é notável uma sobreposição de pontos na fronteira, e ao analizarmos os resultados para as 5 execuções foi notado que
+quando $\mathrm{w}$ assumia valores maiores que aproximadamente $0.65$ a solucão converge para o valor ótimo de $f_1$ e quando assumia valores menores que $0.15$
+a solucão converge para o valor ótimo de $f_2$. Ou seja, há uma perda de resolução nos pontos da fronteira devido a essa sensibilidade aos pesos escolhidos aleatóriamente.
+
 \section{Abordagem $\epsilon$-Restrito}
 
 Para a abordagem $\epsilon$-Restrito, geramos 20 valores de 
@@ -387,10 +391,102 @@ elas foram obtidas considerando-se a função objetivo normalizada por
 
 \chapter{Indicadores de Qualidade}\label{cap:analise} 
 
+Para avaliar a qualidade das soluções não-dominadas obtidas pelos métodos utilizados, empregou-se o
+\textit{indicador de hipervolume} (\textit{s-metric}). Este indicador é amplamente utilizado na literatura de otimização multiobjetivo
+por sua capacidade de capturar simultaneamente propriedades de \textbf{convergência} e \textbf{diversidade}.
+
+\subsection{Formulação Matemática}
+
+Dado um conjunto $S = \{x_1, x_2, \dots, x_n\}$ de soluções não-dominadas em um problema de minimização com $m$ objetivos, e um vetor de
+referência $z^{\text{ref}} = (z_1^{\text{ref}}, \dots, z_m^{\text{ref}})$, o hipervolume $HV(S)$ é definido como:
+
+\begin{equation}
+HV(S) = \text{Vol} \left( \bigcup_{x \in S} [f_1(x), z_1^{\text{ref}}] \times \cdots \times [f_m(x), z_m^{\text{ref}}] \right)
+\end{equation}
+
+No caso biobjetivo considerado neste trabalho ($m = 2$), o hipervolume corresponde à área total dominada pelas soluções de $S$ até o
+ponto de referência $z^{\text{ref}}$.
+
+\subsection{Interpretação Geométrica}
+
+Geometricamente, o hipervolume representa a união de retângulos formados por cada solução não-dominada e o vetor de referência.
+Assim, quanto maior o hipervolume, maior a área do espaço dos objetivos que é coberta pelas soluções, indicando tanto boa convergência quanto boa distribuição.
+
+\begin{figure}[h!]
+	\caption{\label{fig:hypervolume}Figura ilustrativa da métrica de hipervolume.}
+	\begin{center}
+    \includegraphics[width=0.6\textwidth,clip]{Illustration-hypervolume-metric.png}
+	\end{center}
+	\legend{Fonte: \href{https://www.researchgate.net/figure/Illustration-of-the-hypervolume-metric-for-an-optimization-problem-with-two-objective_fig3_331214313}{ResearchGate}}
+\end{figure}
+
+Na Figura \ref{fig:hypervolume} temos uma ilustração da métrica de hipervolume para um problema de otimização com duas funções objetivo.
+
+O \textbf{hipervolume do conjunto de referência} (em vermelho, com o ponto de referência \( \mathbf{r} = [1, 1] \)) é utilizado como \textbf{fator de normalização}.
+
+Assim, o \textbf{hipervolume normalizado} do \textit{conjunto de aproximação} (em cinza) é calculado como:
+
+\[
+HV_{\text{NAS}} = \frac{HV_{\text{AS}}}{HV_{\text{RS}}}
+\]
+
+onde:
+\begin{itemize}
+    \item \( HV_{\text{NAS}} \): hipervolume normalizado do conjunto de aproximação (Normalized Approximation Set)
+    \item \( HV_{\text{AS}} \): hipervolume do conjunto de aproximação (Approximation Set)
+    \item \( HV_{\text{RS}} \): hipervolume do conjunto de referência (Reference Set)
+\end{itemize}
+
+\subsection{Implementação}
+
+Para a utilização dessa métrica para avaliar os resultados obtidos pelas fronteira encontradas, foi fornecido uma função Matlab já ajustada ao problema trabalhado,
+sendo necessário apenas a entrada de um arquivo ``.csv'' com $500$ colunas e $N$ linhas, onde $N$ são as solucões encontradas. Conforme sugerido nas orientações do trabalho,
+foi feita a união dos resultados da $5$ fronteiras encontradas com 20 pontos cada, e portanto foi passado um arquivo ``.csv'' com $500$ colunas e $100$ linhas para cada um dos
+métodos.
+
+O algorítimo fornecido já possui uma filtragem das soluções enviadas, logo não foi necessário uma limpeza de soluções repetidas no arquivo pois isso já era feito automaticamente.
+
+
+
+\subsection{Resultados Obtidos}
+
+\begin{figure}[h!]
+	\caption{\label{fig:simplexHVI}Resultado da avalicão da métrica de hipervolume para o Simplex e soma ponderada com 100 solucões}
+	\begin{center}
+    \includegraphics[width=0.4\textwidth,trim=1 1 1 1,clip]{simplexHVI.png}
+	\end{center}
+	\legend{Fonte: elaboração própria.}
+\end{figure}
+
+\begin{figure}[h!]
+	\caption{\label{fig:simplex2000HVI}Resultado da avalicão da métrica de hipervolume para o simplexe soma ponderada com 2000 solucões}
+	\begin{center}
+    \includegraphics[width=0.4\textwidth,trim=1 1 1 1,clip]{simplex2000HVI.png}
+	\end{center}
+	\legend{Fonte: elaboração própria.}
+\end{figure}
+
+\begin{figure}[h!]
+	\caption{\label{fig:somaPonderadaHVI}Resultado da avalicão da métrica de hipervolume para o BVNS soma ponderada com 100 solucões}
+	\begin{center}
+    \includegraphics[width=0.4\textwidth,trim=1 1 1 1,clip]{somaPonderadaHVI.png}
+	\end{center}
+	\legend{Fonte: elaboração própria.}
+\end{figure}
+
+Em todos os casos foi realizada uma redução considerável de soluções após a filtragem presente no algorítimo principalmente naqueles em que se utilizou o método da soma ponderada.
+O que já era de se esperar, ainda mais com a resolução reduzida para esse método onde apenas os pesos $\mathrm{w}$ entre $0.15$ e $0.65$ eram capazes de gerar novas soluções.
+
+\subsection{Considerações Finais}
+
+O hipervolume é um indicador robusto e informativo para avaliação de algoritmos heurísticos em problemas multiobjetivo. Sua aplicação neste trabalho
+forneceu uma métrica quantitativa confiável para comparar a eficácia do método $\varepsilon$-restrito, validando a qualidade das soluções obtidas tanto do ponto de
+vista de convergência quanto de diversidade.
 
 
 \chapter{Referências}\label{cap:referencias} 
 
 \noindent M. Gendreau, J.-Y. Potvin (eds.), Handbook of Metaheuristics, Springer, 2nd ed., 2010.
+\noindent Bode, Felix \& Reed, Patrick \& Reuschen, Sebastian \& Nowak, Wolfgang. (2019). Search Space Representation and Reduction Methods to Enhance Multi-Objective Water Supply Monitoring Design. Water Resources Research. 55. 10.1029/2018WR023133. 
 
 \end{document}

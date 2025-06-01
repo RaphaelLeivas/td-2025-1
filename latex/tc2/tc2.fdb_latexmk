@@ -1,16 +1,20 @@
 # Fdb version 4
-["makeindex tc2.idx"] 1748805959.76104 "tc2.idx" "tc2.ind" "tc2" 1748805961.41506 0
-  "tc2.idx" 1748805960 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["makeindex tc2.idx"] 1748808959.03616 "tc2.idx" "tc2.ind" "tc2" 1748811391.41849 0
+  "tc2.idx" 1748811390 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
   "tc2.ilg"
   "tc2.ind"
   (rewritten before read)
-["pdflatex"] 1748805960.10932 "c:/Users/bravo/OneDrive/Engenharia Elétrica/Teoria da decisao/td-2025-1/latex/tc2/tc2.tex" "tc2.pdf" "tc2" 1748805961.41548 0
+["pdflatex"] 1748811390.03134 "c:/Users/bravo/OneDrive/Engenharia Elétrica/Teoria da decisao/td-2025-1/latex/tc2/tc2.tex" "tc2.pdf" "tc2" 1748811391.41897 0
   "../elementos-pre-textuais/../elementos-pre-textuais/capa.tex" 1747960761 516 57a16914256dd9cc7669e221f60c7df9 ""
   "../elementos-pre-textuais/../elementos-pre-textuais/sumario.tex" 1745090689 114 a09651546dc4163efd9b3c19065f0730 ""
   "../elementos-pre-textuais/capa.tex" 1747960761 516 57a16914256dd9cc7669e221f60c7df9 ""
   "../elementos-pre-textuais/sumario.tex" 1745090689 114 a09651546dc4163efd9b3c19065f0730 ""
+  "../images/Illustration-hypervolume-metric.png" 1748808414 136404 652c3ac4fd017fafc4a2e87cbeb3931c ""
+  "../images/simplex2000HVI.png" 1748810616 27111 79ca4317e8c61d8b06756369be78da86 ""
+  "../images/simplexHVI.png" 1748810666 26529 f5cb7f7ccb653319c83fc3f3bd715e65 ""
   "../images/simplex_tc2.png" 1748804919 44108 2045fd7661808d24e26acc667f296607 ""
+  "../images/somaPonderadaHVI.png" 1748810736 26655 9a5a1360dc70d1223471695e6464e835 ""
   "../images/tc2-epsilon.png" 1748804919 41031 abc53b81932254a1f61821937610e62a ""
   "../images/tc2-somaponderada.png" 1748804919 30530 603e3d61073d06b6d6639289518b6667 ""
   "C:/Program Files/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458473887 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -56,6 +60,7 @@
   "C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1247596667 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1247596667 32726 39f0f9e62e84beb801509898a605dbd5 ""
   "C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1247596667 32569 5e5ddc8df908dea60932f3c484a54c0d ""
+  "C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1247596667 32626 5abc8bb2f28aa647d4c70f8ea38cc0d3 ""
   "C:/Program Files/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb" 1136864148 35941 adef23a721dd8354a4a2bf4434f1c484 ""
   "C:/Program Files/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb" 1136864148 44648 23115b2a545ebfe2c526c3ca99db8b95 ""
   "C:/Program Files/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb" 1136864148 48169 065450055814ce4dfc30f7922d24ab30 ""
@@ -176,11 +181,11 @@
   "C:/Users/bravo/AppData/Roaming/MiKTeX/tex/latex/setspace/setspace.sty" 1670403145 22490 8cac309b79a4c53a4ffce4b1b07aead0 ""
   "C:/Users/bravo/AppData/Roaming/MiKTeX/tex/latex/textcase/textcase.sty" 1740138976 3164 6b6fe33a41126007f2392b3b931bd33f ""
   "C:/Users/bravo/AppData/Roaming/MiKTeX/tex/latex/xpatch/xpatch.sty" 1585221260 8510 7803f78066c4f9d008405191a4b43073 ""
-  "c:/Users/bravo/OneDrive/Engenharia Elétrica/Teoria da decisao/td-2025-1/latex/tc2/tc2.tex" 1748805944 13705 f19bf69f1a7fc6ad286617b6173a07e0 ""
-  "tc2.aux" 1748805961 6611 39309039bfb01666afe9cb07fc32db8c "pdflatex"
-  "tc2.ind" 1748805960 0 d41d8cd98f00b204e9800998ecf8427e "makeindex tc2.idx"
-  "tc2.tex" 1748805944 13705 f19bf69f1a7fc6ad286617b6173a07e0 ""
-  "tc2.toc" 1748805961 947 9dd790ac57cc90024a5c81090f0c2725 "pdflatex"
+  "c:/Users/bravo/OneDrive/Engenharia Elétrica/Teoria da decisao/td-2025-1/latex/tc2/tc2.tex" 1748811388 19653 bbbea59e920616f9c9ae1a43deb7d173 ""
+  "tc2.aux" 1748811391 10115 3b325b05e6346bbdeaf491839e10f29f "pdflatex"
+  "tc2.ind" 1748808959 0 d41d8cd98f00b204e9800998ecf8427e "makeindex tc2.idx"
+  "tc2.tex" 1748811388 19653 bbbea59e920616f9c9ae1a43deb7d173 ""
+  "tc2.toc" 1748811391 1406 75361f3d33fc62a88afcb849d62a3c28 "pdflatex"
   (generated)
   "tc2.aux"
   "tc2.idx"
