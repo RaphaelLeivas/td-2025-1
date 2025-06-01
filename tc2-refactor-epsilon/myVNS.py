@@ -9,22 +9,24 @@ class MyVNS:
     def shake(self, x, k, probdata):
         if not isinstance(x, np.ndarray):
             raise Exception("x is not an array at MyProblem.fobj2")
-
-        y = copy.deepcopy(x)
-
-        ridx_full = np.random.randint(0, probdata.n)
-        idx_large = np.where(y > 0)
-        ridx_large = np.random.randint(0, len(idx_large), size=2)
-        ridx1 = ridx_large[0]
-        ridx2 = ridx_large[1]
         
-        if k == 1:             # troca o plano de um aleatorio por um mais barato
-            y[ridx_full] = 0 if y[ridx_full] == 0 else y[ridx_full] - 1
-        elif k == 2:           # troca o plano de um que esta caro por um mais barato
-            y[ridx1] = 0 if y[ridx1] == 0 else y[ridx1] - 1
-        elif k == 3:           # Mudança de um bloco de equipamentos para outro plano (sair de mínimo local)
-            y[ridx1] = 0 if y[ridx1] == 0 else y[ridx1] - 1
-            y[ridx2] = 0 if y[ridx2] == 0 else y[ridx2] - 1
+        y = copy.deepcopy(x)
+        ridx1 = np.random.randint(0, probdata.n)
+        ridx2 = np.random.randint(0, probdata.n)
+        blockSize = 50
+        startIndex = np.random.randint(0, probdata.n - blockSize)
+        blockIndices = range(startIndex, startIndex + blockSize)
+
+        if k == 1:
+            y[ridx1] = np.random.choice([j for j in [0, 1, 2] if j != x[ridx1]])
+        elif k == 2:
+            y[ridx1], y[ridx2] = x[ridx2], x[ridx1]
+        elif k == 3:
+            currentPlans = [x[i] for i in blockIndices]
+            currentPlan = max(set(currentPlans), key=currentPlans.count)
+            newPlan = np.random.choice([j for j in [0, 1, 2] if j != currentPlan])
+            for i in blockIndices:
+                y[i] = newPlan
 
         return y
 

@@ -41,8 +41,7 @@ class MyProblem:
 
         # soma o termo de penalidade (slide 9 02-ot-restrita)
         u = 100
-        epsilon = 1800
-        gx = self.fobj2(x, probdata) - epsilon # f2 <= epsilon ===> f2 - epsilon <= 0
+        gx = self.fobj2(x, probdata) - probdata.epsilon # f2 <= epsilon ===> f2 - epsilon <= 0
 
         fitness = fitness + u * (max(0, gx))**2
 
