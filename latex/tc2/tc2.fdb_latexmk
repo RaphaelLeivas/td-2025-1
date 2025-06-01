@@ -1,16 +1,17 @@
 # Fdb version 4
-["makeindex tc2.idx"] 1748808959.03616 "tc2.idx" "tc2.ind" "tc2" 1748811391.41849 0
-  "tc2.idx" 1748811390 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["makeindex tc2.idx"] 1748808959.03616 "tc2.idx" "tc2.ind" "tc2" 1748818705.0019 0
+  "tc2.idx" 1748818704 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
   "tc2.ilg"
   "tc2.ind"
   (rewritten before read)
-["pdflatex"] 1748811390.03134 "c:/Users/bravo/OneDrive/Engenharia Elétrica/Teoria da decisao/td-2025-1/latex/tc2/tc2.tex" "tc2.pdf" "tc2" 1748811391.41897 0
+["pdflatex"] 1748818703.58393 "c:/Users/bravo/OneDrive/Engenharia Elétrica/Teoria da decisao/td-2025-1/latex/tc2/tc2.tex" "tc2.pdf" "tc2" 1748818705.00246 0
   "../elementos-pre-textuais/../elementos-pre-textuais/capa.tex" 1747960761 516 57a16914256dd9cc7669e221f60c7df9 ""
   "../elementos-pre-textuais/../elementos-pre-textuais/sumario.tex" 1745090689 114 a09651546dc4163efd9b3c19065f0730 ""
   "../elementos-pre-textuais/capa.tex" 1747960761 516 57a16914256dd9cc7669e221f60c7df9 ""
   "../elementos-pre-textuais/sumario.tex" 1745090689 114 a09651546dc4163efd9b3c19065f0730 ""
   "../images/Illustration-hypervolume-metric.png" 1748808414 136404 652c3ac4fd017fafc4a2e87cbeb3931c ""
+  "../images/erestritoHVI.png" 1748811600 26610 c68ba89a64f33b6ed80a0c36dbc6b89f ""
   "../images/simplex2000HVI.png" 1748810616 27111 79ca4317e8c61d8b06756369be78da86 ""
   "../images/simplexHVI.png" 1748810666 26529 f5cb7f7ccb653319c83fc3f3bd715e65 ""
   "../images/simplex_tc2.png" 1748804919 44108 2045fd7661808d24e26acc667f296607 ""
@@ -181,11 +182,11 @@
   "C:/Users/bravo/AppData/Roaming/MiKTeX/tex/latex/setspace/setspace.sty" 1670403145 22490 8cac309b79a4c53a4ffce4b1b07aead0 ""
   "C:/Users/bravo/AppData/Roaming/MiKTeX/tex/latex/textcase/textcase.sty" 1740138976 3164 6b6fe33a41126007f2392b3b931bd33f ""
   "C:/Users/bravo/AppData/Roaming/MiKTeX/tex/latex/xpatch/xpatch.sty" 1585221260 8510 7803f78066c4f9d008405191a4b43073 ""
-  "c:/Users/bravo/OneDrive/Engenharia Elétrica/Teoria da decisao/td-2025-1/latex/tc2/tc2.tex" 1748811388 19653 bbbea59e920616f9c9ae1a43deb7d173 ""
-  "tc2.aux" 1748811391 10115 3b325b05e6346bbdeaf491839e10f29f "pdflatex"
+  "c:/Users/bravo/OneDrive/Engenharia Elétrica/Teoria da decisao/td-2025-1/latex/tc2/tc2.tex" 1748818702 20343 77c11f5ccf0547d289f93076bb76ff14 ""
+  "tc2.aux" 1748818704 10391 507c3fd1113da635e27615cc7a7adefc "pdflatex"
   "tc2.ind" 1748808959 0 d41d8cd98f00b204e9800998ecf8427e "makeindex tc2.idx"
-  "tc2.tex" 1748811388 19653 bbbea59e920616f9c9ae1a43deb7d173 ""
-  "tc2.toc" 1748811391 1406 75361f3d33fc62a88afcb849d62a3c28 "pdflatex"
+  "tc2.tex" 1748818702 20343 77c11f5ccf0547d289f93076bb76ff14 ""
+  "tc2.toc" 1748818704 1359 6545fd86b45103c63ec62f9da5b02ab2 "pdflatex"
   (generated)
   "tc2.aux"
   "tc2.idx"

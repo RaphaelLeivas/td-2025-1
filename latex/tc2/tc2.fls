@@ -363,6 +363,12 @@ INPUT ..\images\somaPonderadaHVI.png
 INPUT ..\images\somaPonderadaHVI.png
 INPUT ..\images\somaPonderadaHVI.png
 INPUT ..\images\somaPonderadaHVI.png
+INPUT ..\images\erestritoHVI.png
+INPUT ..\images\erestritoHVI.png
+INPUT ..\images\erestritoHVI.png
+INPUT ..\images\erestritoHVI.png
+INPUT ..\images\erestritoHVI.png
+INPUT ..\images\erestritoHVI.png
 OUTPUT tc2.toc
 INPUT tc2.aux
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx12.pfb

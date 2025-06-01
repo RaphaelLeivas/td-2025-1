@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.1.14)  1 JUN 2025 17:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.1.14)  1 JUN 2025 19:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1056,27 +1056,42 @@ Package pdftex.def Info: ../images/somaPonderadaHVI.png  used on input line 472.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
+<../images/erestritoHVI.png, id=136, 203.25937pt x 102.3825pt>
+File: ../images/erestritoHVI.png Graphic file (type png)
+<use ../images/erestritoHVI.png>
+Package pdftex.def Info: ../images/erestritoHVI.png  used on input line 480.
+(pdftex.def)             Requested size: 181.99722pt x 90.77164pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 [10
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.485 
-       <../images/Illustration-hypervolume-metric.png>] [11
+l.488 \chapter
+              {Considerações Finais} <../images/Illustration-hypervolume-metric.png>] [11
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.487 \chapter
-              {Referências}\label{cap:referencias}
+l.488 \chapter
+              {Considerações Finais}
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.487 \chapter
-              {Referências}\label{cap:referencias}
+l.488 \chapter
+              {Considerações Finais}
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.487 \chapter
-              {Referências}\label{cap:referencias} <../images/simplexHVI.png> <../images/simplex2000HVI.png> <../images/somaPonderadaHVI.png>] [12
+l.488 \chapter
+              {Considerações Finais}
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.8}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.488 \chapter
+              {Considerações Finais} <../images/simplexHVI.png> <../images/simplex2000HVI.png> <../images/somaPonderadaHVI.png> <../images/erestritoHVI.png>] [12
+
+] [13
 
 ]
 \tf@toc=\write5
@@ -1089,17 +1104,17 @@ L3 programming layer <2020/03/25>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 19754 strings out of 474486
- 320315 string characters out of 5753570
+ 19762 strings out of 474486
+ 320559 string characters out of 5753570
  1937542 words of memory out of 5000000
- 41556 multiletter control sequences out of 15000+600000
- 587869 words of font info for 149 fonts, out of 8000000 for 9000
+ 41565 multiletter control sequences out of 15000+600000
+ 587724 words of font info for 147 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,12n,107p,1085b,480s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on tc2.pdf (12 pages, 452085 bytes).
+Output written on tc2.pdf (13 pages, 471777 bytes).
 PDF statistics:
- 275 PDF objects out of 1000 (max. 8388607)
- 44 named destinations out of 1000 (max. 500000)
- 30926 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 285 PDF objects out of 1000 (max. 8388607)
+ 46 named destinations out of 1000 (max. 500000)
+ 30937 words of extra memory for PDF output out of 35830 (max. 10000000)
 
