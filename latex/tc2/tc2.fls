@@ -317,12 +317,34 @@ INPUT ..\images\simplex_tc2.png
 INPUT ..\images\simplex_tc2.png
 INPUT ..\images\simplex_tc2.png
 INPUT ..\images\simplex_tc2.png
+INPUT ..\images\tc2-somaponderada.png
+INPUT ..\images\tc2-somaponderada.png
+INPUT ..\images\tc2-somaponderada.png
+INPUT ..\images\tc2-somaponderada.png
+INPUT ..\images\tc2-somaponderada.png
+INPUT ..\images\tc2-somaponderada.png
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx10.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx7.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx5.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam10.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam7.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm7.tfm
+INPUT ..\images\tc2-epsilon.png
+INPUT ..\images\tc2-epsilon.png
+INPUT ..\images\tc2-epsilon.png
+INPUT ..\images\tc2-epsilon.png
+INPUT ..\images\tc2-epsilon.png
+INPUT ..\images\tc2-epsilon.png
 OUTPUT tc2.toc
 INPUT tc2.aux
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx12.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx12.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmex10.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmex10.pfb
+INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi10.pfb
+INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi10.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi12.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi12.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi6.pfb

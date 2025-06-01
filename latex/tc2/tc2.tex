@@ -277,7 +277,7 @@ Contudo, como o BVNS é usado para resolver problemas de otimização irrestrito
 precisamos converter (\ref{eq:epsilon}) em um problema irrestrito. Para isso, adicionamos o 
 termo um termo de penalidade $p(x, u)$ da seguinte forma:
 
-\[ p(x, u) = u \, \max \left[ 0, g(x) \right] \]
+\[ p(x, u) = u \, \max \left[ 0, g(x) \right] ^2 \]
 
 \noindent onde $g(x)$ é a nossa restrição de desigualdade, dada por 
 
@@ -287,7 +287,7 @@ termo um termo de penalidade $p(x, u)$ da seguinte forma:
 
 
 \begin{equation}\label{eq:epsilon-irrestrito}
-	\min f_1 + u \, \max \left[ 0, f_2 - \epsilon_2 \right] 
+	\min f_1 + u \, \max \left[ 0, f_2 - \epsilon_2 \right] ^2
 \end{equation}
 
 Note que as demais restrições já estão naturalmente incluídas no BVNS devido 
@@ -317,8 +317,14 @@ A partir do trabalho realizado no TC01, já sabemos que
 \max f_2 = 1745.49 
 \]
 
-\noindent de modo que esses valores serão usados em (\ref{eq:normalizacao}) 
-nos algoritmos.
+\noindent de modo que a formulação da soma ponderada de (\ref{eq:soma-ponderada})
+pode ser reescrita como  
+
+\[ \min \left( \mathrm{w}\frac{f_1(\mathbf{x}) - \min f_1}{\max f_1 - \min f_1} 
++ (1-\mathrm{w})\frac{f_2(\mathbf{x}) - \min f_2}{\max f_2 - \min f_2}\right)    \]   
+
+
+\noindent que será usado como função objetivo no código do BNVS.
 
 \chapter{Solução via Simplex}\label{cap:simplex} 
 
@@ -347,9 +353,40 @@ fronteira já obtida pelo Simplex.
 
 \section{Abordagem de Soma Ponderada}
 
-	Para a 
+Para a soma ponderada, usamos a modelagem de (\ref{eq:soma-ponderada})
+com 20 valores aleatórios de $\mathrm{w}$ entre 0 e 1, 
+executando 5 vezes, obtemos a Fronteira Pareto-ótima exibida na 
+\autoref{fig:tc2-somaponderada}.
+
+\begin{figure}[h!]
+	\caption{\label{fig:tc2-somaponderada}Fronteira Pareto-ótima obtida via BVNS com soma ponderada.}
+	\begin{center}
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{tc2-somaponderada.png}
+	\end{center}
+	\legend{Fonte: elaboração própria.}
+\end{figure}
 
 \section{Abordagem $\epsilon$-Restrito}
+
+Para a abordagem $\epsilon$-Restrito, geramos 20 valores de 
+$\epsilon_2$ espaçados igualmente no intervalo $\left[ \min f_2 , \max f_2 \right]$,
+obtendo a fronteira Pareto-ótima exibida na \autoref{fig:tc2-epsilon}.
+A fronteira exibe os valores absolutos das funções objetivo, mas 
+elas foram obtidas considerando-se a função objetivo normalizada por 
+(\ref{eq:normalizacao}).
+
+\begin{figure}[h!]
+	\caption{\label{fig:tc2-epsilon}Fronteira Pareto-ótima obtida via BVNS a 
+	abordagem $\epsilon$-Restrito.}
+	\begin{center}
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{tc2-epsilon.png}
+	\end{center}
+	\legend{Fonte: elaboração própria.}
+\end{figure}
+
+
+\chapter{Indicadores de Qualidade}\label{cap:analise} 
+
 
 
 \chapter{Referências}\label{cap:referencias} 
