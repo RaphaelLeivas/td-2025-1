@@ -129,8 +129,10 @@ max_f2 = 1745.49
 for (i in 1:length(w1)) {
   # so o denominador da normalizacao entra, a outra parcela da soma nao 
   # tem variavel e nao interfere na minimizacao
-  model$obj <- w1[i] * (1 / (max_f1 - min_f1)) * f1_costsVec + 
+  model$obj <- w1[i] * (1 / (max_f1 - min_f1)) * f1_costsVec +
     w2[i] * (1 / (max_f2 - min_f2)) * f2_costsVec
+  
+  # model$obj <- w1[i] * f1_costsVec + w2[i] * f2_costsVec
   
   # Resolver o problema com Gurobi
   result <- gurobi(model, params)
@@ -141,8 +143,8 @@ for (i in 1:length(w1)) {
   f1 <- t(f1_costsVec) %*% solution 
   f2 <- t(f2_costsVec) %*% solution
   
-  f1_arr <- c(f1_arr, (f1 - min_f1) / (max_f1 - min_f1))
-  f2_arr <- c(f2_arr, (f2 - min_f2) / (max_f2 - min_f2))
+  f1_arr <- c(f1_arr, f1)
+  f2_arr <- c(f2_arr, f2)
 }
 
 plot(f1_arr, f2_arr, col = "red", lwd = 2, xlab = "f1", ylab = "f2", 
