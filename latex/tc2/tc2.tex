@@ -273,6 +273,30 @@ Temos
 \noindent em que (\ref{eq:epsilon}) possui as mesmas restrições do problema original
 mais a restrição de $f_2 \leq \epsilon_2$.
 
+Contudo, como o BVNS é usado para resolver problemas de otimização irrestritos, 
+precisamos converter (\ref{eq:epsilon}) em um problema irrestrito. Para isso, adicionamos o 
+termo um termo de penalidade $p(x, u)$ da seguinte forma:
+
+\[ p(x, u) = u \, \max \left[ 0, g(x) \right] \]
+
+\noindent onde $g(x)$ é a nossa restrição de desigualdade, dada por 
+
+\[ g(x) \leq 0 \quad \Longrightarrow \quad f_2 - \epsilon_2 \leq 0 \quad \Longrightarrow \quad g(x) = f_2 - \epsilon_2 \]
+
+\noindent de modo que o nosso problema irrestrito se torna:  
+
+
+\begin{equation}\label{eq:epsilon-irrestrito}
+	\min f_1 + u \, \max \left[ 0, f_2 - \epsilon_2 \right] 
+\end{equation}
+
+Note que as demais restrições já estão naturalmente incluídas no BVNS devido 
+à maneira como nós fizemos a representação computacional das variáveis de decisão, 
+de modo que só precisamos fazer a correção para a restrição do $\epsilon$
+em (\ref{eq:epsilon-irrestrito}).
+
+
+
 \section{Normalização}
 
 Para garantir que as abordagens escalares sejam condizentes, precisamos normalizar $f_1$ e $f_2$ 
