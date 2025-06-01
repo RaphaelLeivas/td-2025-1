@@ -34,21 +34,12 @@ for i in range(num_execucoes):
     data.append(f1_solucoes)
     data.append(f2_solucoes)
 
-
-data = [
-    ['Name', 'Age', 'City'],
-    ['Alice', 25, 'New York'],
-    ['Bob', 30, 'Los Angeles'],
-    ['Charlie', 35, 'Chicago']
-]
-    
-with open('fronteiras_epsilon.csv', mode='w', newline='') as file:
+with open('testes/fronteiras_epsilon.csv', mode='w', newline='') as file:
     writer = csv.writer(file)
+    header_column = []
+
     writer.writerows(data)
     file.close()
-
-
-
 
 plt.figure(figsize=(10, 6))
 for i in range(num_execucoes):
