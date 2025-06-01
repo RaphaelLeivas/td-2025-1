@@ -20,6 +20,9 @@ mpdb <- read.csv(mpdb_path, header = FALSE, sep = ",")
 
 N <- nrow(equipdb)
 J <- 3
+number_of_solutions <- 2000
+
+csv_data <- matrix(NA, ncol = N, nrow = number_of_solutions)
 
 # custo de falha do equipamento i
 d_i <- equipdb[,4]
@@ -115,7 +118,7 @@ params$outputflag <- 0 # Suprimir saídas do Gurobi
 
 # ----------- Foramatação de dados finalizado: chama o Solver -----------
 
-w1 <- runif(2000, min = 0, max = 1)
+w1 <- runif(number_of_solutions, min = 0, max = 1)
 w2 <- 1 - w1
 
 f1_arr <- c()
@@ -125,8 +128,11 @@ min_f1 = 0
 max_f1 = 1000
 min_f2 = 1048.17 
 max_f2 = 1745.49 
-  
+
+counter <- 0
 for (i in 1:length(w1)) {
+  counter <- counter + 1
+  
   # so o denominador da normalizacao entra, a outra parcela da soma nao 
   # tem variavel e nao interfere na minimizacao
   model$obj <- w1[i] * (1 / (max_f1 - min_f1)) * f1_costsVec +
@@ -143,9 +149,37 @@ for (i in 1:length(w1)) {
   f1 <- t(f1_costsVec) %*% solution 
   f2 <- t(f2_costsVec) %*% solution
   
+  # formata a solução em um vetor de 500 linhas
+  solution_csv <- c()
+  for (i in 1:N) {
+    base_idx <- 3 * (i - 1) + 1
+    
+    if (solution[base_idx] == 1) {
+      solution_csv <- c(solution_csv, 1)
+    } else if (solution[base_idx + 1] == 1) {
+      solution_csv <- c(solution_csv, 2)
+    } else {
+      solution_csv <- c(solution_csv, 3)
+    }
+  }
+  
+  csv_data[counter, ] <- solution_csv
+  
   f1_arr <- c(f1_arr, f1)
   f2_arr <- c(f2_arr, f2)
 }
+
+df_names <- c()
+
+for (i in 1:N) {
+  df_names <- c(df_names, paste("x", i - 1, sep = ""))
+}
+
+csv_df <- data.frame(csv_data)
+names(csv_df) <- df_names
+path <- "C:\\dev\\td-2025-1\\f2_simplex_csv.csv"
+
+write.csv(csv_df, file=path, row.names = FALSE, quote = FALSE)
 
 plot(f1_arr, f2_arr, col = "red", lwd = 2, xlab = "f1", ylab = "f2", 
      main = "Espaço de objetivos")
