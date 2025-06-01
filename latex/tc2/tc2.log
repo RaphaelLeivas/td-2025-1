@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.1.14)  1 JUN 2025 00:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.1.14)  1 JUN 2025 00:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -966,35 +966,35 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 254.
 
-[4]
-<../images/simplex_tc2.png, id=64, 705.837pt x 405.31425pt>
+[4] [5]
+<../images/simplex_tc2.png, id=71, 705.837pt x 405.31425pt>
 File: ../images/simplex_tc2.png Graphic file (type png)
 <use ../images/simplex_tc2.png>
-Package pdftex.def Info: ../images/simplex_tc2.png  used on input line 313.
+Package pdftex.def Info: ../images/simplex_tc2.png  used on input line 337.
 (pdftex.def)             Requested size: 455.0pt x 260.72472pt.
- [5
+ [6
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.322 \chapter
+l.346 \chapter
               {Solução via BVNS}\label{cap:bnvs} <../images/simplex_tc2.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 326.
+(hyperref)                removing `math shift' on input line 350.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\epsilon' on input line 326.
+(hyperref)                removing `\epsilon' on input line 350.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 326.
+(hyperref)                removing `math shift' on input line 350.
 
-[6
+[7
 
-] [7
+] [8
 
 ]
 \tf@toc=\write5
@@ -1007,17 +1007,17 @@ L3 programming layer <2020/03/25>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 19587 strings out of 474486
- 317106 string characters out of 5753570
+ 19596 strings out of 474486
+ 317200 string characters out of 5753570
  1937542 words of memory out of 5000000
- 41464 multiletter control sequences out of 15000+600000
- 582335 words of font info for 105 fonts, out of 8000000 for 9000
+ 41465 multiletter control sequences out of 15000+600000
+ 582585 words of font info for 109 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,12n,107p,1085b,474s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,12n,107p,1085b,480s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on tc2.pdf (7 pages, 224805 bytes).
+Output written on tc2.pdf (8 pages, 227516 bytes).
 PDF statistics:
- 168 PDF objects out of 1000 (max. 8388607)
- 25 named destinations out of 1000 (max. 500000)
+ 175 PDF objects out of 1000 (max. 8388607)
+ 27 named destinations out of 1000 (max. 500000)
  26204 words of extra memory for PDF output out of 29859 (max. 10000000)
 

@@ -1,11 +1,11 @@
 # Fdb version 4
-["makeindex tc2.idx"] 1748748026.24633 "tc2.idx" "tc2.ind" "tc2" 1748748029.10816 0
-  "tc2.idx" 1748748027 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["makeindex tc2.idx"] 1748748026.24633 "tc2.idx" "tc2.ind" "tc2" 1748749274.49878 0
+  "tc2.idx" 1748749273 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
   "tc2.ilg"
   "tc2.ind"
   (rewritten before read)
-["pdflatex"] 1748748026.49901 "c:/Users/bravo/OneDrive/Engenharia Elétrica/Teoria da decisao/td-2025-1/latex/tc2/tc2.tex" "tc2.pdf" "tc2" 1748748029.10865 0
+["pdflatex"] 1748749272.85234 "c:/Users/bravo/OneDrive/Engenharia Elétrica/Teoria da decisao/td-2025-1/latex/tc2/tc2.tex" "tc2.pdf" "tc2" 1748749274.49938 0
   "../elementos-pre-textuais/../elementos-pre-textuais/capa.tex" 1747960761 516 57a16914256dd9cc7669e221f60c7df9 ""
   "../elementos-pre-textuais/../elementos-pre-textuais/sumario.tex" 1745090689 114 a09651546dc4163efd9b3c19065f0730 ""
   "../elementos-pre-textuais/capa.tex" 1747960761 516 57a16914256dd9cc7669e221f60c7df9 ""
@@ -170,11 +170,11 @@
   "C:/Users/bravo/AppData/Roaming/MiKTeX/tex/latex/setspace/setspace.sty" 1670403145 22490 8cac309b79a4c53a4ffce4b1b07aead0 ""
   "C:/Users/bravo/AppData/Roaming/MiKTeX/tex/latex/textcase/textcase.sty" 1740138976 3164 6b6fe33a41126007f2392b3b931bd33f ""
   "C:/Users/bravo/AppData/Roaming/MiKTeX/tex/latex/xpatch/xpatch.sty" 1585221260 8510 7803f78066c4f9d008405191a4b43073 ""
-  "c:/Users/bravo/OneDrive/Engenharia Elétrica/Teoria da decisao/td-2025-1/latex/tc2/tc2.tex" 1748707157 11186 7cd9aed8581c514b346277ee934c051f ""
-  "tc2.aux" 1748748027 5372 9219d43692b6723835c006b0b8def7bd "pdflatex"
+  "c:/Users/bravo/OneDrive/Engenharia Elétrica/Teoria da decisao/td-2025-1/latex/tc2/tc2.tex" 1748749269 12165 d7a75bb4e74e62cef8dd49c809921c29 ""
+  "tc2.aux" 1748749273 5484 b4d02b90c2e1fa1e3db5f71e7bd3d04b "pdflatex"
   "tc2.ind" 1748748026 0 d41d8cd98f00b204e9800998ecf8427e "makeindex tc2.idx"
-  "tc2.tex" 1748707157 11186 7cd9aed8581c514b346277ee934c051f ""
-  "tc2.toc" 1748748027 859 37c703afc86193ab6aa98d0e279133e4 "pdflatex"
+  "tc2.tex" 1748749269 12165 d7a75bb4e74e62cef8dd49c809921c29 ""
+  "tc2.toc" 1748749273 859 5fc024761344471ee419b562be958c02 "pdflatex"
   (generated)
   "tc2.aux"
   "tc2.idx"
