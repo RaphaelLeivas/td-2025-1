@@ -135,10 +135,10 @@ for (i in 1:length(w1)) {
   
   # so o denominador da normalizacao entra, a outra parcela da soma nao 
   # tem variavel e nao interfere na minimizacao
-  model$obj <- w1[i] * (1 / (max_f1 - min_f1)) * f1_costsVec +
-    w2[i] * (1 / (max_f2 - min_f2)) * f2_costsVec
+  # model$obj <- w1[i] * (1 / (max_f1 - min_f1)) * f1_costsVec +
+  #   w2[i] * (1 / (max_f2 - min_f2)) * f2_costsVec
   
-  # model$obj <- w1[i] * f1_costsVec + w2[i] * f2_costsVec
+  model$obj <- w1[i] * f1_costsVec + w2[i] * f2_costsVec
   
   # Resolver o problema com Gurobi
   result <- gurobi(model, params)
@@ -158,7 +158,7 @@ for (i in 1:length(w1)) {
       solution_csv <- c(solution_csv, 1)
     } else if (solution[base_idx + 1] == 1) {
       solution_csv <- c(solution_csv, 2)
-    } else {
+    } else if (solution[base_idx + 2] == 1) {
       solution_csv <- c(solution_csv, 3)
     }
   }
@@ -177,7 +177,7 @@ for (i in 1:N) {
 
 csv_df <- data.frame(csv_data)
 names(csv_df) <- df_names
-path <- "C:\\dev\\td-2025-1\\f2_simplex_csv.csv"
+path <- "C:\\dev\\td-2025-1\\f2_simplex_csv_25062025.csv"
 
 write.csv(csv_df, file=path, row.names = FALSE, quote = FALSE)
 
