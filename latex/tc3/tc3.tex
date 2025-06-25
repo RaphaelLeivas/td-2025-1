@@ -129,10 +129,14 @@ dada por $d_i$. Assim, temos
 
 \[ x_{ij} \in \{0,1\} \quad , \quad i = \{1, 2, ..., N\}  \quad , \quad j = \{1, 2, ..., J\} \]
 
-\begin{align}
-p_{ij} &= \frac{F_i \left(t_0 + k_j \Delta t \right) - F_i\left(t_0\right) }{1 - F_i\left(t_0\right)} \\
-F_i(t) &= 1 - \exp \left[ - \left( \frac{t}{\eta_i} \right)^{\beta_i} \right]
-\end{align}
+
+\begin{equation}\label{eq:pij}
+	p_{ij} = \frac{F_i \left(t_0 + k_j \Delta t \right) - F_i\left(t_0\right) }{1 - F_i\left(t_0\right)}
+\end{equation}
+\begin{equation}\label{eq:fit}
+	F_i(t) = 1 - \exp \left[ - \left( \frac{t}{\eta_i} \right)^{\beta_i} \right]
+\end{equation}
+
 
 \noindent sujeito a 
 
@@ -140,7 +144,7 @@ F_i(t) &= 1 - \exp \left[ - \left( \frac{t}{\eta_i} \right)^{\beta_i} \right]
 	\sum_{j=1}^{J} x_{ij} = 1 \quad , \quad \forall i = {1, 2, ..., N}
 \end{equation}
 
-Note que na \autoref{eq:objf2} temos essencialmente um problema de programação linear inteira.
+Note que na Equação \ref{eq:objf2} temos essencialmente um problema de programação linear inteira.
 Assim, é possível usar o método Simplex visto em Pesquisa Operacional para resolver esse problema
 com garantia de otimalidade. Usando o Simplex, a solução encontrada foi 
 
@@ -178,16 +182,9 @@ a modelagem multiobjetivo do problema.
 	\item $N = 500$: número de equipamentos
 	\item $J = 3$: número de planos de manutenção
 	\item $c_j$: custo de executar a manutenção $j$
-	\item $p_{ij}$: probabilidade de falha do equipamento $i$ executando a manutenção $j$
+	\item $p_{ij}$: probabilidade de falha do equipamento $i$ executando a manutenção $j$, definido em \ref{eq:pij} e \ref{eq:fit}
 	\item $d_{i}$: custo de falha do equipamento $i$
 \end{itemize}
-
-\noindent e 
-
-\begin{align}
-p_{ij} &= \frac{F_i \left(t_0 + k_j \Delta t \right) - F_i\left(t_0\right) }{1 - F_i\left(t_0\right)} \\
-F_i(t) &= 1 - \exp \left[ - \left( \frac{t}{\eta_i} \right)^{\beta_i} \right]
-\end{align}
 
 A partir dessa modelagem, temos o nosso problema multiobjetivo 
 
@@ -272,17 +269,6 @@ através de
 	f_2(\mathbf{x}) = \frac{f_2(\mathbf{x}) - \min f_2}{\max f_2 - \min f_2}       
 \end{equation}
 
-A partir do trabalho realizado no TC01, já sabemos que 
-
-
-\begin{align}
-\min f_1 &= 0 \\
-\max f_1 &= 1000 \\
-\min f_2 &= 1048.17 \\
-\max f_2 &= 1745.49
-\end{align}
-
-
 \noindent de modo que a formulação da soma ponderada de (\ref{eq:soma-ponderada})
 pode ser reescrita como  
 
@@ -292,7 +278,202 @@ pode ser reescrita como
 
 \noindent que será usado como função objetivo no código do BVNS.
 
-\section{Conclusion}
+\subsubsection{BVNS - Basic Variable Neighborhood Search}
+
+O Algoritmo \ref{alg:bvns} mostra a versão do BVNS implementada 
+no trabalho.
+
+\begin{algorithm}[H]
+	\caption{BVNS implementado no trabalho.}\label{alg:bvns}
+	\begin{algorithmic}[1]
+	\Procedure{BVNS}{\textbf{x}, k\textsubscript{max}}
+		\While{num\_sol\_avaliadas $<$ max\_sol\_avaliadas}
+			\State k $\gets$ 1
+
+			\While{k $<$ k\textsubscript{max}}
+				\State $ \textbf{x'} \gets$ \Call{Shake}{\textbf{x}, k} 
+				\State $ \textbf{x''} \gets$ \Call{FirstImprovement}{\textbf{x}, \textbf{x'}, k} 
+				\State $ \textbf{x}, k \gets$ \Call{NeighborhoodChange}{\textbf{x}, \textbf{x''}, k} 
+			\EndWhile
+		\EndWhile
+	\EndProcedure 
+	\end{algorithmic}
+\end{algorithm}
+
+O Algoritmo \ref{alg:shake} mostra a função Shake. Nela estão definidas as três estruturas de vizinhança escolhidas para implementação. As duas primeiras
+são vizinhaças de refinamento, mas com abordagens diferentes. E a terceira é uma vizinhança de perturbação para buscar sair de mínimos locais:
+\begin{itemize}
+	\item A primeira estrutura é o que chamamos de um movimento de \textit{1-swap}, onde é escolhido aleatorimente um equipamento e trocado seu plano para um dos outros dois
+	restantes, a escolha do plano também é aleatória.
+	\item A segunda estrutura é a troca ou permutação dos planos de dois equipamentos diferentes escolhidos também aleatóriamente.
+	\item A terceira estrutura por sua vez, altera um bloco de 50 equipamentos em sequência, onde o início do bloco é aleatório. Nesse bloco é avaliado qual o plano mais comum
+	e troca-se o plano de manutenção de todos os integrantes do bloco para um mesmo plano, diferente do mais comum encontrado anteriormente.
+\end{itemize}
+
+\begin{algorithm}[H]
+	\caption{Função Shake.}\label{alg:shake}
+	\Comment{Gera uma solução aleatória na k-ésima estrutura de vizinhança.}
+	\begin{algorithmic}[1]
+	\Procedure{Shake}{\textbf{x}, k}
+		\If{k = 1}
+			\State $\textbf{y} \gets$ 1-swap
+		\EndIf
+		\If{k = 2}
+			\State $\textbf{y} \gets$ Permutação de dois planos de manutenção
+		\EndIf
+		\If{k = 3}
+			\State $\textbf{y} \gets$ Mudança de um bloco de equipamentos para outro plano
+		\EndIf
+	\Statex
+	\State \textbf{return y} 
+
+	\EndProcedure 
+	\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Estratégias de Refinamento}
+
+O Algoritmo \ref{alg:first-improvement} mostra a função de busca local
+implementanda após gerar uma solução aleatória com o Shake. Ela basicamente 
+realiza uma busca em até $N = 100$ vizinhos à solução inicial \textbf{x'} do Shake, 
+e retorna a primeira 
+solução \textbf{x''} cujo valor da solução objetivo é menor do que o valor do objetivo na 
+solução inicial \textbf{x'} do Shake. Caso nenhuma solução melhor é encontrada, 
+retorna a solução inicial \textbf{x'}.
+
+\begin{algorithm}[H]
+	\caption{Função FirstImprovement.}\label{alg:first-improvement}
+	\Comment{Busca uma primeira solução na vizinhança de \textbf{x'} melhor que \textbf{x'}.}
+
+	\begin{algorithmic}[1]
+	\Procedure{FirstImprovement}{\textbf{x'}, k}
+
+	\State $N\gets$ 100 
+
+	\ForAll {i \textbf{in} range($N$)}
+		\State \textbf{x''} $\gets$ \Call{Shake}{\textbf{x'}, k} 
+		\If{$f(\textbf{x''}) < f(\textbf{x'})$}
+			\State \textbf{return x''} 
+		\EndIf
+	\EndFor
+		
+	\Statex
+	\State \textbf{return x'} 
+	\EndProcedure 
+	\end{algorithmic}
+\end{algorithm}
+
+É possível fazer uma pequena modificação no Algoritmo \ref{alg:first-improvement} 
+para obter o Best Improvement, exibido no Algoritmo \ref{alg:best-improvement}. 
+Note que essa função sempre executa as $N$ buscas por uma melhor solução, e 
+portanto o código é mais caro computacionalmente que no Algoritmo \ref{alg:first-improvement}.
+No entanto, em geral, a solução encontrada pelo BestImprovement será melhor que a 
+do FirstImprovement.
+
+\begin{algorithm}[H]
+	\caption{Função BestImprovement.}\label{alg:best-improvement}
+	\Comment{Busca a melhor solução na vizinhança de \textbf{x'} melhor que \textbf{x'}.}
+
+	\begin{algorithmic}[1]
+	\Procedure{BestImprovement}{\textbf{x'}, k}
+
+	\State $N\gets$ 100 
+	\State \textbf{x\_melhor} $\gets$ \textbf{x'}
+
+	\ForAll {i \textbf{in} range($N$)}
+		\State \textbf{x''} $\gets$ \Call{Shake}{\textbf{x'}, k} 
+		\If{$f$(\textbf{x''}) $<$ $f$(\textbf{x\_melhor})}
+			\State \textbf{x\_melhor} $\gets$ \textbf{x''}
+		\EndIf
+	\EndFor
+		
+	\Statex
+	\State \textbf{return x\_melhor} 
+	\EndProcedure 
+	\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Heurística Construtiva}
+
+O Algoritmo \ref{alg:sol-inicial} mostra a heurística construtiva utilizada para a criação da solução inicial. Basicamente o problema se reduz
+em escolher um plano de manutenção, dentre os três disponíveis, para cada equipamento minimizando o custo da manutenção e o custo de falha dos equipamentos.
+A minimização do custo da manutenção se dá escolhendo a manutenção mais barata para todos os equipamentos, e a minimização do custo de falha escolhendo a manutenção mais cara.
+
+Olhando para o segundo problema, temos a matriz de custos de falha $p_{ij}d_{i}$ onde $i$ é cada equipamento e $j$ os planos de manutencão. Para cada equipamento $i$ fixo avalia-se a
+variância de $p_{ij}d_{i}$ e caso esse valor seja maior que o limiar de $0.5$ escolhe a manutenção mais cara para compor a solução inicial daquele equipamento,
+caso seja menor que o limiar é escolhida a manutenção mais barata. 
+
+A lógica envolvida é que se o custo de falha não varia tanto para aquele equipamento,
+não é necessário a manutenção mais cara.
+
+\begin{algorithm}[H]
+	\caption{Heurística construtiva para gerar a solução inicial.}\label{alg:sol-inicial}
+	\begin{algorithmic}[1]
+	\Procedure{SolucaoInicial}{\null}
+
+	\State \textbf{x} $\gets$ Solução aleatória
+
+	\ForAll {i \textbf{in} \textbf{x}}
+		\If{variancia($p_{ij} d_{i}$) $\geq$ limiar}
+			\State \textbf{x}[i] $\gets$ Manutenção mais cara
+		\Else
+			\State \textbf{x}[i] $\gets$ Manutenção mais barata
+		\EndIf
+	\EndFor
+	   
+	\Statex
+	\State \textbf{return x} 
+	\EndProcedure 
+	\end{algorithmic}
+\end{algorithm}
+
+\section{Resultados}
+
+\subsection{Problemas mono objetivos}
+
+A partir da execução do algoritmo BVNS para a resolução dos problemas mono-objetivo foi obtido
+os seguintes valores:
+
+\begin{align}
+\min f_1 &= 0 \\
+\max f_1 &= 1000 \\
+\min f_2 &= 1048.17 \\
+\max f_2 &= 1745.49
+\end{align}
+
+Esses resultados são utilizados para a realizar a normalização dos valores ao se utilizar a formulação de Soma Ponderada e os mínimos estão ilustrados nas Figuras \ref{fig:convergencia_execucoes_p1} e \ref{fig:convergencia_execucoes_p2}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{convergencia_execucoes_p1.png}
+    \caption{\label{fig:convergencia_execucoes_p1}Convergência do BVNS implementado para o Problema 1 Isolado.}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{convergencia_execucoes.png}
+    \caption{\label{fig:convergencia_execucoes_p2}Convergência do BVNS implementado para o Problema 2 Isolado.}
+\end{figure}
+
+\subsection{Indicador de Hipervolume (HVI)}
+
+Para a realização do cálculo a métrica de HVI foi permitido o uso de mais de 20 soluções pareto na fronteira, de maneira que o valor para a métrica atingisse
+os valores indicados para comparação. Dessa forma, foram utilizadas $200$ soluções e a visualização da fronteira pode ser vista na Figura \ref{fig:plotFronteiraParetoERestrito200pontos}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{plotFronteiraParetoERestrito200pontos.png}
+    \caption{\label{fig:plotFronteiraParetoERestrito200pontos}Fronteira Pareto para 200 soluções com método $\epsilon$-restrito usada para cálculo do HVI}
+\end{figure}
+
+O valor de HVI obtido foi:
+
+\begin{equation}\label{eq:HVI}
+	\un{HVI: }0.602974
+\end{equation}
+
+
+\section{Conclusão}
 The conclusion goes here.
 
 
