@@ -6,6 +6,49 @@ if (length(dev.list())) {
 
 library("flextable")
 
+epsilons <- c(
+  1048.17,
+  1066.05,
+  1083.93,
+  1101.81,
+  1119.69,
+  1137.57,
+  1155.45,
+  1173.33,
+  1191.21,
+  1209.09,
+  1226.97,
+  1244.85,
+  1262.73,
+  1280.61,
+  1298.49,
+  1316.37,
+  1334.25,
+  1352.13,
+  1370.01,
+  1387.89,
+  1405.77,
+  1423.65,
+  1441.53,
+  1459.41,
+  1477.29,
+  1495.17,
+  1513.05,
+  1530.93,
+  1548.81,
+  1566.69,
+  1584.57,
+  1602.45,
+  1620.33,
+  1638.21,
+  1656.09,
+  1673.97,
+  1691.85,
+  1709.73,
+  1727.61,
+  1745.4
+)
+
 set.seed(2)
 
 f1 <- function(solution) {
@@ -81,6 +124,8 @@ csv_path <- "C:\\dev\\td-2025-1\\tc2-refactor-epsilon\\resultados_pareto_epsilon
 
 data <- as.matrix(read.csv(csv_path))
 
+data <- cbind(rep(epsilons, 5), data)
+
 N <- nrow(equipdb)
 J <- 3
 number_of_solutions <- 20
@@ -135,7 +180,8 @@ counter <- 0
 attributes_data <- matrix(NA, nrow = number_of_solutions, ncol = 4)
 for (i in 1:number_of_solutions) {
    counter <- counter + 1
-   solution <- solutions[i, ]
+   epsilon <- solutions[i, 1]
+   solution <- solutions[i, 2:ncol(solutions)]
    all_data[, 7] <- as.matrix(solution, ncol = 1)
    
    attributes_data[i, 1] <- f1(solution)
@@ -165,8 +211,9 @@ for (i in 1:number_of_solutions) {
   barplot(maint_per_cluster,
           beside = TRUE,       # Side-by-side bars
           col = CLUSTER_COLORS,
-          main = paste("Num eqptos x cluster - counter = ", counter),
-          ylab = "Numero de Equipamentos", ylim = c(0, 200))
+          main = paste("Num eqptos x cluster - epsilon = ", epsilon),
+          ylab = "Numero de Equipamentos", ylim = c(0, 200),
+          xlab = "Plano de Manutenção")
   
   legend("top",          
          legend = CLUSTER_NAMES, fill = CLUSTER_COLORS)
@@ -445,12 +492,12 @@ ic_f4 <- (eigvals[1] - number_of_solutions) / (number_of_solutions - 1)
 
 # tabela de comparação entre os critérios: 4 x 4
 # priorizando f1
-# att_table <- matrix(c(
-#   1, 5, 5, 3,
-#   1/5, 1, 5, 3,
-#   1/5, 1/5, 1, 1/3,
-#   1/3, 1/3, 3, 1
-# ), ncol = 4, nrow = 4, byrow = T)
+att_table <- matrix(c(
+  1, 5, 5, 3,
+  1/5, 1, 5, 3,
+  1/5, 1/5, 1, 1/3,
+  1/3, 1/3, 3, 1
+), ncol = 4, nrow = 4, byrow = T)
 
 # priorizando f2
 # att_table <- matrix(c(
@@ -461,12 +508,12 @@ ic_f4 <- (eigvals[1] - number_of_solutions) / (number_of_solutions - 1)
 # ), ncol = 4, nrow = 4, byrow = T)
 
 # priorizando f3
-# att_table <- matrix(c(
-#   1, 1 / 5, 1 / 5, 3,
-#   5, 1, 1 / 5, 3,
-#   5, 5, 1, 3,
-#   1/3, 1/3, 1 / 3, 1
-# ), ncol = 4, nrow = 4, byrow = T)
+att_table <- matrix(c(
+  1, 1 / 5, 1 / 5, 3,
+  5, 1, 1 / 5, 3,
+  5, 5, 1, 3,
+  1/3, 1/3, 1 / 3, 1
+), ncol = 4, nrow = 4, byrow = T)
 
 # priorizando f4
 # att_table <- matrix(c(
@@ -477,7 +524,7 @@ ic_f4 <- (eigvals[1] - number_of_solutions) / (number_of_solutions - 1)
 # ), ncol = 4, nrow = 4, byrow = T)
 
 # priorizando todos igual
-att_table <- matrix(rep(1, 16), ncol = 4, nrow = 4, byrow = T)
+# att_table <- matrix(rep(1, 16), ncol = 4, nrow = 4, byrow = T)
 
 # calcula as coisas do slide - att_table
 eigvecs <- eigen(att_table)$vectors
@@ -498,4 +545,27 @@ for (i in 1:number_of_solutions) {
 }
 chosen_sol <- which.max(global_priorities)
 print(chosen_sol)
+
+# df <- data.frame(
+#   seq(1, 20, 1), 
+#   attributes_data[, 1],
+#   round(attributes_data[, 2]),
+#   round(attributes_data[, 3], 2),
+#   attributes_data[, 4]
+# )
+# colnames(df) <- c("Solução", "f1", "f2", "A3", "A4")
+# ft <- flextable(df)
+# ft <- align(ft, align = "center", part = "all")
+# ft
+
+df <- data.frame(
+  c("f1", "f2", "A3", "A4"), 
+  round(att_table, 2)
+)
+colnames(df) <-  c("Att", "f1", "f2", "A3", "A4")
+ft <- flextable(df)
+ft <- align(ft, align = "center", part = "all")
+ft
+
+
 

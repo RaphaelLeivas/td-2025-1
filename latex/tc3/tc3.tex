@@ -35,6 +35,8 @@
 \graphicspath{ {../images/} }
 
 \newcommand{\un}[1]{\;\text{#1}}
+\renewcommand{\figureautorefname}{Figura}
+\renewcommand{\equationautorefname}{Eq.}
 
 \hyphenation{op-tical net-works semi-conduc-tor IEEEtran}
 
@@ -472,6 +474,123 @@ O valor de HVI obtido foi:
 	\un{HVI: }0.602974
 \end{equation}
 
+\subsection{Tomada de Decisão Multicritério}
+
+Para a tomada de decisão multicritério, vamos considerar 20 dentre as 200 soluções exibidas na 
+\autoref{fig:plotFronteiraParetoERestrito200pontos}. Vamos comparar as soluções usando 4 atributos
+de interesse, definidos abaixo. A justificativa dos atributos 3 e 4 será dada a seguir.
+
+\begin{enumerate}
+	\item Valor de $f_1$;
+	\item Valor de $f_2$;
+	\item Razão entre o número de equipamentos no plano 1 pelo número no plano 3;
+	\item Soma do número de equipamentos do Cluster 4 no plano 1 e o número de equipamentos 
+	de equipamentos do Cluster 1 no plano 1.
+\end{enumerate}
+
+Para entender o atributo 3, vamos analisar algumas soluções da fronteira em termos dos equipamentos,
+como mostra a \autoref{fig:results-per_epsilon}. Quando o $\epsilon$ é pequeno, estamos 
+priorizando a função $f_2$ e assim o algoritmo escolhe a solução que coloca quase 
+todos no plano mais caro (M3), a fim de minimizar o custo esperado de falha. Quando $\epsilon$ 
+é pequeno, priorizamos $f_1$ e o algoritmo coloca a manutenção mais barata (M1) para todos, 
+minimizando o custo total. Quando $\epsilon$ está no meio termo, estamos no meio da fronteira Pareto 
+e ele escolhe uma solução "meio-termo".
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{../images/epsilon-pequeno.png}
+    \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{../images/epsilon-medio.png}
+    \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{../images/epsilon-grande.png}
+    \caption{\label{fig:results-per_epsilon}
+	Distribuição de equipamentos por plano de manutenção para diferentes valores de $\epsilon$.}
+\end{figure}
+
+É importante notar que o plano M2 na \autoref{fig:results-per_epsilon} quase nunca é utilizado. 
+Assim, podemos analisar apenas as distribuições entre M1 e M3 para ter uma noção de como os 
+equipamentos estão sendo distribuídos entre os planos. Além disso, podemos considerar que é 
+indesejável colocar todos os equipamentos em apenas um plano: se a empresa tem 3 planos de manuteção, 
+é esperado que os equipamentos sejam distribuídos ao longo desses três planos, evitando-se 
+colocar todos os equipamentos em apenas um. 
+
+Assim, definimos o atributo 3: a razão entre o número de equipamentos no plano 1 pelo número no plano 3.
+Quanto mais próximo de 1 esse número estiver, melhor a classificação da solução, indicando que 
+os equipamentos estão igualmente distribuídos ao longo de M1 e M3.
+
+Agora vamos analisar como os valores de $f_2$ se comportam para diferentes clusters, a fim de 
+entender melhor o que eles significam. A \autoref{fig:f2-per-cluster} mostra o valor de $f_2$ para diferentes clusters.
+Vemos que $f_2$ - o custo esperado de falha - é menor para os equipamentos do Cluster 4 do que para os 
+do Cluster 1. Esse padrão se repete para os três planos de manuteção. Logo, podemos interpretar isso 
+como um indicativo de que os equipamentos do Cluster 1 são mais valiosos do que os equipamentos do Cluster 4, uma 
+vez que o custo de falha deles é maior. Assim, quanto mais equipamentos do cluster 1 estiverem no plano mais caro 
+(M3) e quanto mais equipamentos do cluster 4 estiverem no mais barato (M1), melhor.
+
+Dessa forma, definimos o atributo 4: soma do número de equipamentos do Cluster 4 no plano 1 e o número de equipamentos 
+de equipamentos do Cluster 1 no plano 1. Quanto maior esse número, melhor.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{../images/f2-per-cluster.png}
+    \caption{\label{fig:f2-per-cluster}
+	Valor de $f_2$ para diferentes clusters.}
+\end{figure}
+
+Para as 20 soluções escolhidas aleatóriamente, calculamos os valores dos 4 atributos, 
+obtendo os resultados da \autoref{fig:solutions-attributes}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{../images/solutions-attributes.png}
+    \caption{\label{fig:solutions-attributes}
+	Valores calculados para os 4 atributos para as 20 soluções consideradas.}
+\end{figure}
+
+\subsection{Solução via AHP}
+
+Usando o AHP, temos que montar as tabelas de comparação entre as 20 
+soluções para cada atributo, e depois uma tabela de comparação entre os 
+atributos em si. Como os atributos são todos numéricos, elas podem ser feitas 
+programaticamente através de condicionais. Por exemplo, para o atributo 3, se uma solução 
+possui A3 igual a 1.2 e outra possui A3 = 20, colocamos o valor 9 na tabela indicando 
+que a primeira é bem melhor do que a segunda.
+
+O vetor de prioridades de cada tabela é calculado através do autovetor direito 
+principal, e o índice de inconsistência (IC) é calculado para cada um das tabelas.
+A tabela de prioridades dos atributos tem dimensão 4 x 4 e está exibida na 
+\autoref{fig:att-table-f1}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{../images/att-table-f1.png}
+    \caption{\label{fig:att-table-f1}
+	Tabela de atributos do AHP. IC = 0.12.}
+\end{figure}
+
+Na \autoref{fig:att-table-f1}, colocamos alta prioridade para o atributo $f_1$.
+Nesse caso, a solução encontrada pelo AHP está indicada na \autoref{fig:result-ahp-f1}.
+Ele selecionou a solução que coloca todos no mais barato, de fato priorizando $f_1$, conforme
+esperado.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{../images/result-ahp-f1.png}
+    \caption{\label{fig:result-ahp-f1}
+	Tabela de atributos do AHP. IC = 0.12.}
+\end{figure}
+
+Modificando as prioridades na tabela de atributos, a solução selecionada muda para atender 
+às novas relações entre os atributos. Por exemplo, colocando alta prioridade para o atributo A3 
+em relação aos demais, temos a solução indicada na \autoref{fig:result-ahp-a3}. Ele seleciona a solução 
+em que a razão entre M1 e M3 é próxima de 1, conforme definimos o atributo.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{../images/result-ahp-a3.png}
+    \caption{\label{fig:result-ahp-a3}
+	Tabela de atributos do AHP. IC = 0.12.}
+\end{figure}
+
+
+\subsection{Solução via PROMETHEE}
 
 \section{Conclusão}
 The conclusion goes here.
