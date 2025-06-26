@@ -217,6 +217,24 @@ for (i in 1:number_of_solutions) {
   
   legend("top",          
          legend = CLUSTER_NAMES, fill = CLUSTER_COLORS)
+  
+  maint_per_cluster <- t(maint_per_cluster)
+  
+  # Naming rows and columns
+  rownames(maint_per_cluster) < c("M1", "M2", "M3")
+  colnames(maint_per_cluster) <- CLUSTER_NAMES
+  
+  MAINT_COLORS <- c("blue", "green", "red")
+  
+  barplot(maint_per_cluster,
+          beside = TRUE,       # Side-by-side bars
+          col = MAINT_COLORS,
+          main = paste("Num eqptos x cluster - epsilon = ", epsilon, " c = ", counter),
+          ylab = "Numero de Equipamentos", ylim = c(0, 200),
+          xlab = "Plano de Manutenção")
+  
+  legend("top",          
+         legend = c("M1", "M2", "M3"), fill = MAINT_COLORS)
 }
 
 # para cada solucao avaliada, monta as tabelas do AHP
@@ -509,10 +527,10 @@ att_table <- matrix(c(
 
 # priorizando f3
 att_table <- matrix(c(
-  1, 1 / 5, 1 / 5, 3,
-  5, 1, 1 / 5, 3,
-  5, 5, 1, 3,
-  1/3, 1/3, 1 / 3, 1
+  1, 1, 1 / 7, 1,
+  1, 1, 1 / 7, 1,
+  7, 7, 1, 5,
+  1, 1, 1 / 5, 1
 ), ncol = 4, nrow = 4, byrow = T)
 
 # priorizando f4
@@ -567,5 +585,20 @@ ft <- flextable(df)
 ft <- align(ft, align = "center", part = "all")
 ft
 
+plot(
+  NULL,
+  main = "Soluções AHP na Fronteira Pareto",
+  xlab = "f1",
+  ylab = "f2",
+  ylim = c(1048.17, 1745),
+  xlim = c(0, 1000)
+)
 
+points(attributes_data[,1], attributes_data[,2], col = "blue", lwd = 3)
+points(f1_solutions[13], f2_solutions[13], col = "green", lwd = 6, pch = 3)
+points(f1_solutions[4], f2_solutions[4], col = "red", lwd = 6, pch = 3)
+legend("topright",                     # Position
+       legend = c("Fronteira", "Solução 1 AHP", "Solução 2 AHP"),
+       col = c("blue", "red", "green"),        # Colors
+       pch = c(1, 3, 3))                      # Line type (solid lines))                       # Line width
 

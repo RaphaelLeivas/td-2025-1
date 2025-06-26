@@ -589,8 +589,96 @@ em que a razão entre M1 e M3 é próxima de 1, conforme definimos o atributo.
 	Tabela de atributos do AHP. IC = 0.12.}
 \end{figure}
 
+As localizações na fronteira Pareta das soluções nas Figuras \ref{fig:result-ahp-f1}
+e \ref{fig:result-ahp-a3} estão exibidas na \autoref{fig:result-ahp-fronteira}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{../images/result-ahp-fronteira.png}
+    \caption{\label{fig:result-ahp-fronteira}
+	Localizações das soluções encontradas pelo AHP na Fronteira Pareto.}
+\end{figure}
+
 
 \subsection{Solução via PROMETHEE}
+
+Análise dos resultados obtidos a partir da aplicação do método PROMETHEE II
+sobre um conjunto de soluções não-dominadas, considerando os 4 atributos 
+definidos acima.
+
+Foram testadas três 
+configurações distintas de pesos atribuídos a esses critérios, 
+priorizando cada um deles individualmente.
+
+\subsubsection{Prioridade Alta para $f_1$ (Custo de Manutenção)}
+
+\begin{itemize}
+	\item Pesos utilizados: f1 = 0.50, f2 = 0.20, a3 = 0.15, a4 = 0.15
+	\item Índice: 6, f1 = 170.00, f2 = 1568.02, a3 = 7.47, a4 = 108
+\end{itemize}
+
+A \autoref{fig:result-promethee-f1} mostra a solução encontrada para o Promethee 
+priorizando-se o valor de $f_1$.
+
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{../images/fronteira-promethee-f1.png}
+    \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{../images/result-promethee-f1.png}
+    \caption{\label{fig:result-promethee-f1}
+	Solução encontrada para o Promethee 
+priorizando-se o valor de $f_1$.}
+\end{figure}
+
+Nesta configuração, a solução selecionada apresenta o menor custo de manutenção entre todas as avaliadas, o que é coerente com o peso elevado atribuído ao critério f1. No entanto, o custo de falha (f2) é consideravelmente mais alto, indicando que o baixo investimento em manutenção aumenta os riscos de falhas. A razão entre M1 e M3 (a3) é bastante alta, reforçando que muitos equipamentos foram designados ao plano M1.
+
+\subsubsection{Prioridade Alta para $f_2$ (Custo Esperados de Falha)}
+
+\begin{itemize}
+	\item Pesos utilizados: f1 = 0.10, f2 = 0.60, a3 = 0.15, a4 = 0.15
+	\item Índice: 9, f1 = 734.00, f2 = 1140.97, a3 = 0.30, a4 = 111
+\end{itemize}
+
+A \autoref{fig:result-promethee-f2} mostra a solução encontrada para o Promethee 
+priorizando-se o valor de $f_2$.
+
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{../images/fronteira-promethee-f2.png}
+    \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{../images/result-promethee-f2.png}
+    \caption{\label{fig:result-promethee-f2}
+	Solução encontrada para o Promethee 
+priorizando-se o valor de $f_2$.}
+\end{figure}
+
+A configuração priorizou a minimização do custo esperado de falha, e a solução escolhida apresenta um f2 significativamente mais baixo. O custo de manutenção é muito elevado, o que indica uma alocação mais intensiva em planos preventivos mais custosos. A razão a3 é baixa, sugerindo uma maior proporção de equipamentos em M3.
+
+\subsubsection{Prioridade Alta para A3 (Razão entre M1 e M3)}
+
+\begin{itemize}
+	\item Pesos utilizados:  f1 = 0.30, f2 = 0.30, a3 = 0.30, a4 = 0.10
+	\item Índice: 11, f1 = 295.00, f2 = 1444.02, a3 = 2.69, a4 = 107
+\end{itemize}
+
+A \autoref{fig:result-promethee-a3} mostra a solução encontrada para o Promethee 
+priorizando-se o valor de $f_2$.
+
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{../images/fronteira-promethee-a3.png}
+    \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{../images/result-promethee-a3.png}
+    \caption{\label{fig:result-promethee-a3}
+	Solução encontrada para o Promethee 
+priorizando-se o valor de $f_2$.}
+\end{figure}
+
+Com foco na razão entre planos M1 e M3, a solução resultante apresenta um equilíbrio moderado entre custo de manutenção e risco de falha. A razão a3 está próxima de 3, o que indica uma leve preferência por M1 em relação a M3. A solução mantém também valores intermediários para f1 e f2, sendo uma alternativa de compromisso.
+
+\subsubsection{Considerações Finais}
+
+A análise evidencia que diferentes configurações de pesos nos critérios de decisão impactam diretamente o perfil da solução escolhida. Soluções com menor custo de manutenção tendem a apresentar maior risco de falhas, enquanto aquelas que minimizam falhas demandam maior investimento em manutenção. O critério a3 mostrou ser sensível à distribuição entre planos extremos (M1 e M3), enquanto o critério a4 contribui para favorecer a cobertura estratégica de certos clusters.
 
 \section{Conclusão}
 The conclusion goes here.
