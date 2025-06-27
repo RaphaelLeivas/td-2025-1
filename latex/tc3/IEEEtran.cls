@@ -3775,9 +3775,9 @@ which is provided to fool Hyperref.}}
 % so that spacing is more tightly controlled.
 \def\abstract{\normalfont%
     \if@twocolumn%
-      \@IEEEabskeysecsize\bfseries\textit{Abstract}---\,%
+      \@IEEEabskeysecsize\bfseries\textit{Resumo}---\,%
     \else%
-      \begin{center}\vspace{-1.78ex}\@IEEEabskeysecsize\textbf{Abstract}\end{center}\quotation\@IEEEabskeysecsize%
+      \begin{center}\vspace{-1.78ex}\@IEEEabskeysecsize\textbf{Resumo}\end{center}\quotation\@IEEEabskeysecsize%
     \fi\@IEEEgobbleleadPARNLSP}
 % V1.6 IEEE wants only 1 pica from end of abstract to introduction heading when in 
 % conference mode (the heading already has this much above it)

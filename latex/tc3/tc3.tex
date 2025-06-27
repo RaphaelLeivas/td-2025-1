@@ -61,20 +61,24 @@ Matrícula: 2020028101}
 \maketitle
 
 \begin{abstract}
-The abstract goes here.
+Este trabalho busca resolver um problema multiobjetivo de uma empresa explorando-o por partes, com a implementação do algoritmo BVNS (\textit{Basic Variable Neighborhood Search})
+para otimização mono-objetivo, comparação das formulações $\epsilon$-Restrito e soma ponderada para o problema multiobjetivo na formação da fronteira Pareto. Foi utilizado ainda o indicador de qualidade
+HVI para uma análise do conjunto de soluções pareto-ótimas, e comparados os métodos AHP e PROMETHEE para a realização da tomada de decisão.
 \end{abstract}
 
 \section{Introdução}
-% no \PARstart
-This demo file is intended to serve as a ``starter file"
-for IEEE conference papers produced under \LaTeX\ using IEEEtran.cls version
-1.6b and later.
 
- May all your publication endeavors be successful.
+É apresentado um problema multiobjetivo que busca gerenciar as manutenções dos equipamentos de uma empresa, separados em 4 \textit{clusters} ou grupos,
+de forma a otimizar simultaneamente o custo total envolvido na realização das manutenções e o custo total em caso de falha dos equipamentos.
 
-\hfill mds
- 
-\hfill November 18, 2002
+Existem três tipos de manutenção que podem ser aplicadas em cada equipamento, e cada grupo possui uma função que descreve o custo de falha
+de seus equipamentos. São fornecidas todas as informações relativas à modelagem matemática dos custos de manutenção e falha, porém as características e funcionalidades reais 
+dos equipamentos e qual o critério de agrupamento permanecem desconhecidos.
+
+No roteiro apresentado para a exploração do problema são passadas orientações e critérios que idealmente devem ser seguidos, para uma melhor abordagem na resolução que levará à tomada de decisão.
+É indicada uma primeira análise dos problemas de otimização numa perspectiva mono-objetiva isolando os problemas, para assim ser desenvolvido um algoritmo que os resolva.
+Depois, explora-se as opções de formulações para a resolução do problema multiobjetivo definindo-se uma fronteira Pareto-ótima com as possíveis soluções candidatas, e por fim,
+são aplicadas duas estratégias para a tomada de decisão.
 
 \section{Metodologia}
 
@@ -429,6 +433,59 @@ não é necessário a manutenção mais cara.
 	\end{algorithmic}
 \end{algorithm}
 
+\subsection{Indicador de Hipervolume (HVI)}
+
+\subsubsection{Formulação Matemática}
+
+Dado um conjunto $S = \{x_1, x_2, \dots, x_n\}$ de soluções não-dominadas em um problema de minimização com $m$ objetivos, e um vetor de
+referência $z^{\text{ref}} = (z_1^{\text{ref}}, \dots, z_m^{\text{ref}})$, o hipervolume $HV(S)$ é definido como:
+
+\begin{equation}
+HV(S) = \text{Vol} \left( \bigcup_{x \in S} [f_1(x), z_1^{\text{ref}}] \times \cdots \times [f_m(x), z_m^{\text{ref}}] \right)
+\end{equation}
+
+No caso biobjetivo considerado neste trabalho ($m = 2$), o hipervolume corresponde à área total dominada pelas soluções de $S$ até o
+ponto de referência $z^{\text{ref}}$.
+
+\subsubsection{Interpretação Geométrica}
+
+Geometricamente, o hipervolume representa a união de retângulos formados por cada solução não-dominada e o vetor de referência.
+Assim, quanto maior o hipervolume, maior a área do espaço dos objetivos que é coberta pelas soluções, indicando tanto boa convergência quanto boa distribuição.
+
+\begin{figure}[h!]
+	\caption{\label{fig:hypervolume}Figura ilustrativa da métrica de hipervolume. Fonte: \href{https://www.researchgate.net/figure/Illustration-of-the-hypervolume-metric-for-an-optimization-problem-with-two-objective_fig3_331214313}{ResearchGate}}
+	\begin{center}
+    \includegraphics[width=\columnwidth,clip]{Illustration-hypervolume-metric.png}
+	\end{center}
+\end{figure}
+
+Na Figura \ref{fig:hypervolume} temos uma ilustração da métrica de hipervolume para um problema de otimização com duas funções objetivo.
+
+O hipervolume do conjunto de referência (em vermelho, com o ponto de referência \( \mathbf{r} = [1, 1] \)) é utilizado como fator de normalização.
+
+Assim, o hipervolume normalizado do \textit{conjunto de aproximação} (em cinza) é calculado como:
+
+\[
+HV_{\text{NAS}} = \frac{HV_{\text{AS}}}{HV_{\text{RS}}}
+\]
+
+onde:
+\begin{itemize}
+    \item \( HV_{\text{NAS}} \): hipervolume normalizado do conjunto de aproximação (Normalized Approximation Set)
+    \item \( HV_{\text{AS}} \): hipervolume do conjunto de aproximação (Approximation Set)
+    \item \( HV_{\text{RS}} \): hipervolume do conjunto de referência (Reference Set)
+\end{itemize}
+
+\subsubsection{Implementação}
+
+Para a utilização dessa métrica para avaliar os resultados obtidos pelas fronteira encontradas, foi fornecido uma função Matlab já ajustada ao problema trabalhado,
+sendo necessário apenas a entrada de um arquivo ``.csv'' com $500$ colunas e $N$ linhas, onde $N$ são as solucões encontradas. Conforme sugerido nas orientações do trabalho,
+foi feita a união dos resultados da $5$ fronteiras encontradas com 20 pontos cada, e portanto foi passado um arquivo ``.csv'' com $500$ colunas e $100$ linhas para cada um dos
+métodos.
+O algorítimo fornecido já possui uma filtragem das soluções enviadas, logo não foi necessário uma limpeza de soluções repetidas no arquivo pois isso já era feito automaticamente.
+
+
+
 \section{Resultados}
 
 \subsection{Problemas mono objetivos}
@@ -456,6 +513,43 @@ Esses resultados são utilizados para a realizar a normalização dos valores ao
     \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{convergencia_execucoes.png}
     \caption{\label{fig:convergencia_execucoes_p2}Convergência do BVNS implementado para o Problema 2 Isolado.}
 \end{figure}
+
+\subsection{Abordagem de Soma Ponderada}
+
+Para a soma ponderada, usamos a modelagem de (\ref{eq:soma-ponderada})
+com 20 valores aleatórios de $\mathrm{w}$ entre 0 e 1, 
+executando 5 vezes, obtemos a Fronteira Pareto-ótima exibida na 
+Figura \ref{fig:tc2-somaponderada}. A fronteira exibe os valores absolutos das funções objetivo, mas 
+elas foram obtidas considerando-se a função objetivo normalizada por (\ref{eq:normalizacao}).
+
+\begin{figure}[h!]
+	\caption{\label{fig:tc2-somaponderada}Fronteira Pareto-ótima obtida via BVNS com soma ponderada.}
+	\begin{center}
+    \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{tc2-somaponderada.png}
+	\end{center}
+\end{figure}
+
+Ao analizarmos os resultados para as 5 execuções foi notado que
+quando $\mathrm{w}$ assumia valores maiores que aproximadamente $0.65$ a solucão converge para o valor ótimo de $f_1$ e quando assumia valores menores que $0.15$
+a solucão converge para o valor ótimo de $f_2$. Ou seja, há uma perda de resolução nos pontos da fronteira devido a essa sensibilidade aos pesos escolhidos aleatóriamente.
+
+\subsection{Abordagem $\epsilon$-Restrito}
+
+Para a abordagem $\epsilon$-Restrito, geramos 20 valores de 
+$\epsilon_2$ espaçados igualmente no intervalo $\left[ \min f_2 , \max f_2 \right]$,
+obtendo a fronteira Pareto-ótima exibida na Figura \ref{fig:tc2-epsilon}.
+
+\begin{figure}[h!]
+	\caption{\label{fig:tc2-epsilon}Fronteira Pareto-ótima obtida via BVNS a 
+	abordagem $\epsilon$-Restrito.}
+	\begin{center}
+    \includegraphics[width=\columnwidth,trim=1 1 1 1,clip]{tc2-epsilon.png}
+	\end{center}
+\end{figure}
+
+Comparando a fronteira do $\epsilon$-Restrito com a da soma ponderada, vemos 
+que há uma menor sobreposição entre os pontos da fronteira. Obtendo assim um maior número de soluções distintas.
+Dessa forma o método $\epsilon$-Restrito foi escolhido para a geração da Fronteira Pareto que será tomada a decisão problema multiobjetivo. 
 
 \subsection{Indicador de Hipervolume (HVI)}
 
@@ -589,7 +683,7 @@ em que a razão entre M1 e M3 é próxima de 1, conforme definimos o atributo.
 	Tabela de atributos do AHP. IC = 0.12.}
 \end{figure}
 
-As localizações na fronteira Pareta das soluções nas Figuras \ref{fig:result-ahp-f1}
+As localizações na fronteira Pareto das soluções nas Figuras \ref{fig:result-ahp-f1}
 e \ref{fig:result-ahp-a3} estão exibidas na \autoref{fig:result-ahp-fronteira}.
 
 \begin{figure}[htbp]
@@ -662,7 +756,7 @@ A configuração priorizou a minimização do custo esperado de falha, e a solu�
 \end{itemize}
 
 A \autoref{fig:result-promethee-a3} mostra a solução encontrada para o Promethee 
-priorizando-se o valor de $f_2$.
+priorizando-se o valor de $a_3$.
 
 
 \begin{figure}[htbp]
@@ -681,14 +775,23 @@ Com foco na razão entre planos M1 e M3, a solução resultante apresenta um equ
 A análise evidencia que diferentes configurações de pesos nos critérios de decisão impactam diretamente o perfil da solução escolhida. Soluções com menor custo de manutenção tendem a apresentar maior risco de falhas, enquanto aquelas que minimizam falhas demandam maior investimento em manutenção. O critério a3 mostrou ser sensível à distribuição entre planos extremos (M1 e M3), enquanto o critério a4 contribui para favorecer a cobertura estratégica de certos clusters.
 
 \section{Conclusão}
-The conclusion goes here.
+
+O algorítimo implementado para o BVNS e suas estruturas de vizinhança e estratégias de refinamento executaram bem o papel esperado. Encontrando de forma satisfatória os resultados ótimos individuais das funções ($f_1$) e ($f_2$).
+
+As duas abordagens clássicas comparadas para a geração da fronteira pareto evidenciou que a abordagem $\epsilon$-Restrito forneceu uma fronteira mais diversificada, com menor sobreposição entre soluções, sendo mais adequada para a aplicação de métodos de tomada de decisão seguintes.
+
+Avaliando-se 200 soluções não-dominadas por meio do indicador de Hipervolume (HVI), foi obtido um valor de $HVI = 0.602974$, indicando boa qualidade e diversidade na fronteira aproximada.
+
+Na etapa de tomada de decisão multicritério, foram definidos quatro atributos com base em análises estruturadas sobre os dados do problema e o comportamento das soluções. Os métodos clássicos de apoio à decisão AHP e PROMETHEE foram utilizados para selecionar as soluções mais adequadas conforme diferentes perfis de preferência, destacando os ganhos e perdas entre os critérios envolvidos e a valorização do atributo $A_3$ para uma solução ótima mais neutra.
+
+Os resultados obtidos reforçam a importância da integração entre técnicas de otimização e métodos multicritério na escolha de soluções em problemas complexos. Além disso, a abordagem adotada mostra-se flexível e eficaz, podendo ser adaptada a outros cenários de decisão com múltiplos objetivos e restrições.
 
 
 \begin{thebibliography}{1}
 
-\bibitem{IEEEhowto:kopka}
-H.~Kopka and P.~W. Daly, \emph{A Guide to {\LaTeX}}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+\bibitem{HVI}
+Bode, Felix \& Reed, Patrick \& Reuschen, Sebastian \& Nowak, Wolfgang. (2019). Search Space Representation and Reduction Methods to Enhance Multi-Objective Water Supply Monitoring Design. Water Resources Research. 55. 10.1029/2018WR023133. 
+
 
 \end{thebibliography}
 
