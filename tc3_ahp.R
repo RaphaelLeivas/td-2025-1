@@ -518,20 +518,20 @@ att_table <- matrix(c(
 ), ncol = 4, nrow = 4, byrow = T)
 
 # priorizando f2
-# att_table <- matrix(c(
-#   1, 1 / 5, 5, 3,
-#   5, 1, 5, 3,
-#   1/5, 1/5, 1, 1/3,
-#   1/3, 1/3, 3, 1
-# ), ncol = 4, nrow = 4, byrow = T)
+att_table <- matrix(c(
+  1, 1/9, 1, 5,
+  9, 1, 1/3, 5,
+  1, 3, 1, 3,
+  1/5, 1/5, 1/3, 1
+), ncol = 4, nrow = 4, byrow = T)
 
 # priorizando f3
-att_table <- matrix(c(
-  1, 1, 1 / 7, 1,
-  1, 1, 1 / 7, 1,
-  7, 7, 1, 5,
-  1, 1, 1 / 5, 1
-), ncol = 4, nrow = 4, byrow = T)
+# att_table <- matrix(c(
+#   1, 1, 1 / 7, 1,
+#   1, 1, 1 / 7, 1,
+#   7, 7, 1, 5,
+#   1, 1, 1 / 5, 1
+# ), ncol = 4, nrow = 4, byrow = T)
 
 # priorizando f4
 # att_table <- matrix(c(
@@ -564,20 +564,20 @@ for (i in 1:number_of_solutions) {
 chosen_sol <- which.max(global_priorities)
 print(chosen_sol)
 
-# df <- data.frame(
-#   seq(1, 20, 1), 
-#   attributes_data[, 1],
-#   round(attributes_data[, 2]),
-#   round(attributes_data[, 3], 2),
-#   attributes_data[, 4]
-# )
-# colnames(df) <- c("Solução", "f1", "f2", "A3", "A4")
-# ft <- flextable(df)
-# ft <- align(ft, align = "center", part = "all")
-# ft
+df <- data.frame(
+  seq(1, 20, 1),
+  attributes_data[, 1],
+  round(attributes_data[, 2]),
+  round(attributes_data[, 3], 2),
+  attributes_data[, 4]
+)
+colnames(df) <- c("Solução", "f1", "f2", "A3", "A4")
+ft <- flextable(df)
+ft <- align(ft, align = "center", part = "all")
+ft
 
 df <- data.frame(
-  c("f1", "f2", "A3", "A4"), 
+  c("f1", "f2", "A3", "A4"),
   round(att_table, 2)
 )
 colnames(df) <-  c("Att", "f1", "f2", "A3", "A4")
@@ -585,20 +585,20 @@ ft <- flextable(df)
 ft <- align(ft, align = "center", part = "all")
 ft
 
-plot(
-  NULL,
-  main = "Soluções AHP na Fronteira Pareto",
-  xlab = "f1",
-  ylab = "f2",
-  ylim = c(1048.17, 1745),
-  xlim = c(0, 1000)
-)
-
-points(attributes_data[,1], attributes_data[,2], col = "blue", lwd = 3)
-points(f1_solutions[13], f2_solutions[13], col = "green", lwd = 6, pch = 3)
-points(f1_solutions[4], f2_solutions[4], col = "red", lwd = 6, pch = 3)
-legend("topright",                     # Position
-       legend = c("Fronteira", "Solução 1 AHP", "Solução 2 AHP"),
-       col = c("blue", "red", "green"),        # Colors
-       pch = c(1, 3, 3))                      # Line type (solid lines))                       # Line width
+# plot(
+#   NULL,
+#   main = "Soluções AHP na Fronteira Pareto",
+#   xlab = "f1",
+#   ylab = "f2",
+#   ylim = c(1048.17, 1745),
+#   xlim = c(0, 1000)
+# )
+#
+# points(attributes_data[,1], attributes_data[,2], col = "blue", lwd = 3)
+# # points(f1_solutions[13], f2_solutions[13], col = "green", lwd = 6, pch = 3)
+# points(f1_solutions[9], f2_solutions[9], col = "red", lwd = 6, pch = 3)
+# # legend("topright",                     # Position
+# #        legend = c("Fronteira", "Solução 1 AHP", "Solução 2 AHP"),
+# #        col = c("blue", "red", "green"),        # Colors
+# #        pch = c(1, 3, 3))                      # Line type (solid lines))                       # Line width
 
